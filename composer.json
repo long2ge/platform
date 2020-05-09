@@ -15,7 +15,8 @@
         "laravel/framework": "^7.0",
         "laravel/telescope": "^3.3",
         "laravel/tinker": "^2.0",
-        "nwidart/laravel-modules": "^7.1"
+        "nwidart/laravel-modules": "^7.1",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",
