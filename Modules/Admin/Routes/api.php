@@ -16,3 +16,20 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/admin', function (Request $request) {
     return $request->user();
 });
+
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => '\Modules\Admin\Http\Controllers\Api',
+], function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Test route
+    |--------------------------------------------------------------------------
+    */
+    require __DIR__ . '/Api/Test.php';
+
+});
+
+

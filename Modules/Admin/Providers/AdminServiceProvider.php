@@ -39,6 +39,11 @@ class AdminServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        // 绑定后台门面
+        $this->app->singleton('app.admin', function(){
+            return new AdminFacade();
+        });
     }
 
     /**

@@ -73,7 +73,7 @@ class AppInitCommand extends Command
         // 生成Modules目录
         $moduleJsonPath = base_path('modules_statuses.json');
         if (file_exists($moduleJsonPath)) {
-            $modules = json_decode($moduleJsonPath, true) ?? [];
+            $modules = json_decode(file_get_contents($moduleJsonPath), true) ?? [];
 
             foreach ($modules as $module => $status) {
                 if (! $status) continue;
