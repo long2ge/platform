@@ -1,0 +1,13 @@
+{
+    "name": "CutePet",
+    "alias": "cutepet",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\CutePet\\Providers\\CutePetServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
