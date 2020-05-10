@@ -41,16 +41,28 @@ abstract class AbstractUser extends BaseModel implements
     abstract public function findForPassport($username);
 
     /**
+     * passport 密码验证方法
+     * User: long
+     * Date: 2019/9/7 2:26 AM
+     * Describe:
+     * @param string $password 验证密码方法
+     * @return bool
+     */
+//    public function validateForPassportPasswordGrant($password)
+//    {
+//        return $password == $this->password;
+//    }
+
+    /**
      * 退出登陆
      * User: long
      * Date: 2020/5/3 5:33 PM
      * Describe:
-     * @param AbstractUser $user
      * @throws \Exception
      */
-    public function logout(AbstractUser $user)
+    public function logout()
     {
-        $user->token()->delete();
+        $this->token()->delete();
     }
 
 }
