@@ -8,16 +8,16 @@
 
 namespace Modules\Admin\Http\Controllers\Api;
 
-use App\Http\Controllers\AppController;
 use App\Transformers\ArrayTransformer;
 use Illuminate\Http\Request;
+use Modules\Admin\Http\Controllers\AdminAppController;
 
 /**
  * Class TestController
  * Describe: https://laravel-apidoc-generator.readthedocs.io/en/latest/documenting.html#indicating-authentication-status
  * @package Modules\Admin\Http\Controllers\Api
  */
-class TestController extends AppController
+class TestController extends AdminAppController
 {
     public function test(Request $request)
     {
