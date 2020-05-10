@@ -2,13 +2,25 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\AbstractUser;
 
-class User extends Authenticatable
+class User extends AbstractUser
 {
-    use Notifiable;
+    /**
+     * The connection name for the model.
+     * 库链接的配置名
+     *
+     * @var string
+     */
+    protected $connection = 'user';
+
+    /**
+     * Table Name
+     * 表名
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -16,24 +28,30 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'email_verified_at',
+        'remember_token',
+        'phone',
+        'real_name',
+        'birthday',
+        'sex', // 1代表男, 0代表女
+        'union_id',
+        'mini_openid',
+        'avatar',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * 根据用户名字获取密码
+     * User: long
+     * Date: 2019/4/7 6:22 PM
+     * Describe:
+     * @param $username
+     * @return mixed
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function findForPassport($username)
+    {
+        return (new static())->where('name', $username)->first();
+    }
 }
