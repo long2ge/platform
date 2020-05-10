@@ -37,6 +37,16 @@ Route::group([
     */
     require __DIR__ . '/Api/Auth.php';
 
+    // admin_api
+
+    Route::group([
+        'middleware' => 'auth:admin_api',
+    ], function () {
+
+        require __DIR__ . '/Api/User.php';
+
+    });
+
 });
 
 

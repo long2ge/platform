@@ -8,4 +8,3 @@
 
 Route::post('/login', 'AuthController@login')->name('admin.login');
 
-Route::delete('/logout', 'AuthController@logout')->name('admin.logout');

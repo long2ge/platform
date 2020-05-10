@@ -49,20 +49,4 @@ class AuthController extends AdminAppController
         return $AuthorizationManageServer->login($request, $attributes['username'], $attributes['password']);
     }
 
-    /**
-     * 退出登陆
-     * User: long
-     * Date: 2020/5/10 3:17 PM
-     * Describe:
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-
-        $request->user()->logout();
-
-        return response()->noContent();
-    }
-
 }

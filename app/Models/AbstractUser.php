@@ -62,7 +62,9 @@ abstract class AbstractUser extends BaseModel implements
      */
     public function logout()
     {
-        $this->token()->delete();
+        $token = $this->token();
+
+        $token->delete();
     }
 
 }
