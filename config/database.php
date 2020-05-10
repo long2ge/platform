@@ -35,7 +35,7 @@ return [
 
     'connections' => [
 
-        'core' => [
+        'mysql' => [
             'driver'      => 'mysql',
             'host'        => env('DB_HOST', 'localhost'),
             'port'        => env('DB_PORT', 3306),
@@ -48,66 +48,6 @@ return [
             'timezone'    => env('DB_TIMEZONE', '+00:00'),
             'strict'      => env('DB_STRICT_MODE', false),
             'connection'  => env('DB_CONNECTION', 'core'),
-        ],
-
-        'user' => [
-            'driver'      => 'mysql',
-            'host'        => env('DB_HOST', 'localhost'),
-            'port'        => env('DB_PORT', 3306),
-            'database'    => env('DB_DATABASE', 'forge'),
-            'username'    => env('DB_USERNAME', 'forge'),
-            'password'    => env('DB_PASSWORD', ''),
-            'charset'     => env('DB_CHARSET', 'utf8'),
-            'collation'   => env('DB_COLLATION', 'utf8_unicode_ci'),
-            'prefix'      => env('DB_PREFIX', ''),
-            'timezone'    => env('DB_TIMEZONE', '+00:00'),
-            'strict'      => env('DB_STRICT_MODE', false),
-            'connection'  => env('USER_DB_CONNECTION', 'user'),
-        ],
-
-        'order' => [
-            'driver'      => 'mysql',
-            'host'        => env('DB_HOST', 'localhost'),
-            'port'        => env('DB_PORT', 3306),
-            'database'    => env('DB_DATABASE', 'forge'),
-            'username'    => env('DB_USERNAME', 'forge'),
-            'password'    => env('DB_PASSWORD', ''),
-            'charset'     => env('DB_CHARSET', 'utf8'),
-            'collation'   => env('DB_COLLATION', 'utf8_unicode_ci'),
-            'prefix'      => env('DB_PREFIX', ''),
-            'timezone'    => env('DB_TIMEZONE', '+00:00'),
-            'strict'      => env('DB_STRICT_MODE', false),
-            'connection'  => env('ORDER_DB_CONNECTION', 'order'),
-        ],
-
-        'admin' => [
-            'driver'      => 'mysql',
-            'host'        => env('DB_HOST', 'localhost'),
-            'port'        => env('DB_PORT', 3306),
-            'database'    => env('DB_DATABASE', 'forge'),
-            'username'    => env('DB_USERNAME', 'forge'),
-            'password'    => env('DB_PASSWORD', ''),
-            'charset'     => env('DB_CHARSET', 'utf8'),
-            'collation'   => env('DB_COLLATION', 'utf8_unicode_ci'),
-            'prefix'      => env('DB_PREFIX', ''),
-            'timezone'    => env('DB_TIMEZONE', '+00:00'),
-            'strict'      => env('DB_STRICT_MODE', false),
-            'connection'  => env('ADMIN_DB_CONNECTION', 'admin'),
-        ],
-
-        'article' => [
-            'driver'      => 'mysql',
-            'host'        => env('DB_HOST', 'localhost'),
-            'port'        => env('DB_PORT', 3306),
-            'database'    => env('ARTICLE_DB_DATABASE', 'forge'),
-            'username'    => env('ARTICLE_DB_USERNAME', 'forge'),
-            'password'    => env('ARTICLE_DB_PASSWORD', ''),
-            'charset'     => env('ARTICLE_DB_CHARSET', 'utf8'),
-            'collation'   => env('ARTICLE_DB_COLLATION', 'utf8_unicode_ci'),
-            'prefix'      => env('ARTICLE_DB_PREFIX', ''),
-            'timezone'    => env('ARTICLE_DB_TIMEZONE', '+00:00'),
-            'strict'      => env('ARTICLE_DB_STRICT_MODE', false),
-            'connection'  => env('ARTICLE_DB_CONNECTION', 'article'),
         ],
 
     ],
