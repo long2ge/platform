@@ -105,4 +105,23 @@ class AppController extends BaseController
         return response()->json($response, 200);
     }
 
+    /**
+     * Validate the given request with the given rules.
+     *
+     * @param  array  $request
+     * @param  array  $rules
+     * @param  array  $messages
+     * @param  array  $customAttributes
+     * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function validateWithArray(
+        array $request, array $rules, array $messages = [], array $customAttributes = []
+    ) {
+        return $this->getValidationFactory()->make(
+            $request, $rules, $messages, $customAttributes
+        )->validate();
+    }
+
 }
