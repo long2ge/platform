@@ -13,7 +13,7 @@ class CreateUsers extends Migration
      */
     public function up()
     {
-        $dbConnections = config('database.connections.admin.connection');
+        $dbConnections = config('admin.db-connection');
         $tableNames = 'users';
 
         Schema::connection($dbConnections)

@@ -14,7 +14,7 @@ class CreatePostBrowseTable extends Migration
     public function up()
     {
         $table = 'post_browse';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table){
             $table->integer('user_id')->comment('用户ID');
             $table->integer('post_id')->comment('帖子ID');
@@ -31,7 +31,7 @@ class CreatePostBrowseTable extends Migration
     public function down()
     {
         $table = 'post_browse';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

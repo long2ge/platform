@@ -14,7 +14,7 @@ class CreateUserFansTable extends Migration
     public function up()
     {
         $table = 'user_fans';
-        $dbConnection = config('modules.user.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table) {
             $table->integer('fans_user_id')->comment('粉丝用户ID');
             $table->integer('attention_user_id')->comment('关注的用户ID');
@@ -31,7 +31,7 @@ class CreateUserFansTable extends Migration
     public function down()
     {
         $table = 'user_fans';
-        $dbConnection = config('modules.user.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

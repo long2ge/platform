@@ -16,7 +16,7 @@ class Jurisdiction extends Model
      *
      * @var string
      */
-    protected $connection = 'cloud_admin';
+    protected $connection = 'cute_pet';
 
     /**
      * Table Name

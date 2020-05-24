@@ -30,7 +30,7 @@ class ResponseService
      */
     public function responseIssue($userId, $postId, $commentId, $respondentId, $content)
     {
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
 
         try {
             DB::connection($dbConnection)->beginTransaction();
@@ -85,7 +85,7 @@ class ResponseService
      */
     public function responseDelete($postId, $commentId, $responseId)
     {
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
 
         try {
             DB::connection($dbConnection)->beginTransaction();
@@ -139,7 +139,7 @@ class ResponseService
      */
     public function responseRecover($postId, $commentId, $responseId)
     {
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
 
         try {
             DB::connection($dbConnection)->beginTransaction();

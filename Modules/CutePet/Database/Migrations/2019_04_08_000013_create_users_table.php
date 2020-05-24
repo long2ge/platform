@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         $table = 'users';
-        $dbConnection = config('modules.user.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('account')->nullable()->comment('账号');
@@ -56,7 +56,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         $table = 'users';
-        $dbConnection = config('modules.user.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

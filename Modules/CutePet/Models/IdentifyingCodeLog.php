@@ -16,7 +16,7 @@ class IdentifyingCodeLog extends BaseModel
      *
      * @var string
      */
-    protected $connection = 'cloud_core';
+    protected $connection = 'cute_pet';
 
     /**
      * Table Name

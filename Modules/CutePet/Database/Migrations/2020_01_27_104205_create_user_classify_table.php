@@ -15,7 +15,7 @@ class CreateUserClassifyTable extends Migration
     public function up()
     {
         $table = 'user_classify';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table){
             $table->integer('user_id')->comment('帖子ID');
             $table->integer('classify_id')->comment('板块ID');
@@ -30,7 +30,7 @@ class CreateUserClassifyTable extends Migration
     public function down()
     {
         $table = 'user_classify';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

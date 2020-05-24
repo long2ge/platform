@@ -14,7 +14,7 @@ class CreateJurisdictionsTable extends Migration
     public function up()
     {
         $tableNames = 'jurisdictions';
-        $dbConnection = config('modules.admin.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)
             ->create($tableNames, function (Blueprint $table) {
             $table->bigIncrements('id');

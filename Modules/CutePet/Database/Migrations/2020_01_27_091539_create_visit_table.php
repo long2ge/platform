@@ -14,7 +14,7 @@ class CreateVisitTable extends Migration
     public function up()
     {
         $table = 'visit';
-        $dbConnection = config('modules.user.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table) {
             $table->integer('visit_user_id')->comment('访客ID');
             $table->integer('user_id')->comment('用户ID');
@@ -31,7 +31,7 @@ class CreateVisitTable extends Migration
     public function down()
     {
         $table = 'visit';
-        $dbConnection = config('modules.user.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

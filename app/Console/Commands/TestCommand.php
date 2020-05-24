@@ -38,7 +38,7 @@ class TestCommand extends Command
 
     public function handle()
     {
-        echo 'hello word!';
+        dd(config('cutepet.db-connection'));
     }
 
 }

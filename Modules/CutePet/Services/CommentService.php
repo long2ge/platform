@@ -26,7 +26,7 @@ class CommentService
      */
     public function commentIssue($userId, $postId, $content)
     {
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
 
         try {
             DB::connection($dbConnection)->beginTransaction();
@@ -63,7 +63,7 @@ class CommentService
      */
     public function commentDelete($postId, $commentId)
     {
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
 
         try {
             DB::connection($dbConnection)->beginTransaction();
@@ -94,7 +94,7 @@ class CommentService
      */
     public function commentRecover($postId, $commentId)
     {
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
 
         try {
             $comment = Comment::onlyTrashed()->where('id', $commentId)->restore();

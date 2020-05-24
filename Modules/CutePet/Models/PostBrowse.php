@@ -17,7 +17,7 @@ class PostBrowse  extends BaseModel
      *
      * @var string
      */
-    protected $connection = 'cloud_post';
+    protected $connection = 'cute_pet';
 
     /**
      * Table Name

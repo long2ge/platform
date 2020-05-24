@@ -14,7 +14,7 @@ class CreateClassifyTable extends Migration
     public function up()
     {
         $table = 'classify';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table){
             $table->bigIncrements('id');
             $table->string('name')->comment('板块名字');
@@ -31,7 +31,7 @@ class CreateClassifyTable extends Migration
     public function down()
     {
         $table = 'classify';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

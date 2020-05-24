@@ -20,7 +20,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var string
      */
-    protected $connection = 'cloud_user';
+    protected $connection = 'cute_pet';
 
     /**
      * Table Name

@@ -14,7 +14,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         $table = 'posts';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->comment('用户ID');
@@ -41,7 +41,7 @@ class CreatePostsTable extends Migration
     public function down()
     {
         $table = 'posts';
-        $dbConnection = config('modules.post.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

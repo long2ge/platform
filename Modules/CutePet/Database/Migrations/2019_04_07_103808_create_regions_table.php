@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Core\Database\Seeders\RegionTableSeederTableSeeder;
+use Modules\CutePet\Database\Seeders\RegionTableSeederTableSeeder;
 
 class CreateRegionsTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateRegionsTable extends Migration
     public function up()
     {
         $table = 'regions';
-        $dbConnection = config('modules.core.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table) {
             $table->unsignedInteger('id')->comment('行政编码');
             $table->primary('id');
@@ -40,7 +40,7 @@ class CreateRegionsTable extends Migration
     public function down()
     {
         $table = 'regions';
-        $dbConnection = config('modules.core.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }

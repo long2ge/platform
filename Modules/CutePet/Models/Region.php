@@ -1,6 +1,8 @@
 <?php
 
-namespace Modules\Core\Models;
+namespace Modules\CutePet\Models;
+
+use App\Models\BaseModel;
 
 class region extends BaseModel
 {
@@ -10,7 +12,7 @@ class region extends BaseModel
      *
      * @var string
      */
-    protected $connection = 'cloud_core';
+    protected $connection = 'cute_pet';
 
     /**
      * Table Name

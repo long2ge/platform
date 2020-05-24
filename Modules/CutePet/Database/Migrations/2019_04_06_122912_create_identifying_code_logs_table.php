@@ -15,7 +15,7 @@ class CreateIdentifyingCodeLogsTable extends Migration
     public function up()
     {
         $table = 'identifying_code_logs';
-        $dbConnection = config('modules.core.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table) {
             $table->increments('id');
             $table->string('phone_number', 20)->comment('手机号码');
@@ -37,7 +37,7 @@ class CreateIdentifyingCodeLogsTable extends Migration
     public function down()
     {
         $table = 'identifying_code_logs';
-        $dbConnection = config('modules.core.config.db-connection');
+        $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->dropIfExists($table);
     }
 }
