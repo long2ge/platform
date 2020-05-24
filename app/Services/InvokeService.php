@@ -20,4 +20,17 @@ class InvokeService
 {
     use InvokeTrait;
 
+    //后台门面
+    public function getAdminFacade()
+    {
+        return app('app.admin');
+    }
+
+    //前台门面
+    public function getCutePetFacade()
+    {
+        return app('app.cute_pet');
+    }
+
+
 }

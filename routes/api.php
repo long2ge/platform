@@ -33,3 +33,9 @@ $router->get('/login/demo', function (ServerRequestInterface $request) {
         $request, UserRepository::DEMO_NAME, UserRepository::DEMO_PASSWORD);
     }
 );
+
+
+$router->get('/test', function () {
+    return ['data' => 'test'];
+}
+);

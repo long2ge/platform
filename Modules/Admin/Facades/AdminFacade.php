@@ -9,6 +9,7 @@
 namespace Modules\Admin\Facades;
 
 use App\Traits\InvokeTrait;
+use Modules\Admin\Services\PostAdminService;
 
 /**
  * 后台系统门面
@@ -29,6 +30,16 @@ class AdminFacade
     public function test()
     {
         return ' AdminFacade test ';
+    }
+
+    /**
+     * 冻结用户
+     * @param $blockedUserId
+     * @param $user
+     */
+    public function blockedAccount($blockedUserId,$user)
+    {
+        app(PostAdminService::class)->blockedAccount($blockedUserId,$user);
     }
 
 }

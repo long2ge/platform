@@ -46,6 +46,7 @@ class User extends AbstractUser
         'avatar',
         'role_id',
         'status',
+        'jurisdictions_ids',//权限IDs
     ];
 
     /**

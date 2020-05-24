@@ -44,6 +44,8 @@ Route::group([
     ], function () {
 
         require __DIR__ . '/Api/User.php';
+        require __DIR__ . '/Api/V1/Auth/login.php';
+        require __DIR__ . '/Api/V1/Post/post.php';
 
     });
 

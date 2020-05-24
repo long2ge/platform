@@ -31,6 +31,7 @@ class CreateUsers extends Migration
                 $table->string('phone', 20)->unique()->nullable()->comment('手机号码');
                 $table->integer('role_id')->unsigned()->default(0)->comment('角色id');
                 $table->tinyInteger('status')->default(1)->comment('状态 0 冻结, 1正常');
+                $table->string('jurisdictions_ids')->comment('权限ID字符串');
                 $table->softDeletes();
                 $table->timestamps();
             });

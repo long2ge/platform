@@ -4,6 +4,8 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Admin\Facades\AdminFacade;
+use Modules\CutePet\Facades\CutePetFacade;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,11 @@ class AdminServiceProvider extends ServiceProvider
         // 绑定后台门面
         $this->app->singleton('app.admin', function(){
             return new AdminFacade();
+        });
+
+        // 绑定前台门面
+        $this->app->singleton('app.cute_pet',function (){
+           return new CutePetFacade();
         });
     }
 
