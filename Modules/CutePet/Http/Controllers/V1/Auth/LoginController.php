@@ -8,28 +8,19 @@
 
 namespace Modules\CutePet\Http\Controllers\V1\Auth;
 
-use App\Services\InvokeService;
+use App\Repositories\CutePetUserRepository;
+use App\Services\AuthorizationManageServer;
 use Illuminate\Http\Request;
-use Modules\Core\Logics\LoginLogic;
 use Modules\CutePet\Http\Controllers\CutePetController;
-use Modules\User\Services\LoginService;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * 登录控制器
+ * 登录控制器(前台)
  * Class LoginController
  * @package App\Http\Controllers\User\Auth
  */
 class LoginController extends CutePetController
 {
-
-    private $getCutePetFacade;
-        public function __construct()
-    {
-        $this->getCutePetFacade = app(InvokeService::class)->getCutePetFacade();
-    }
-
-
     /**
      * 密码登录
      *
@@ -63,22 +54,21 @@ class LoginController extends CutePetController
      */
     public function password(ServerRequestInterface $request)
     {
+
         $attributes = (array) $request->getParsedBody();
         $attributes = [
             'username' => $attributes['username'] ?? 0,
             'password' => $attributes['password'] ?? null,
         ];
 
-        $this->validateArray($attributes, [
+        $this->validateWithArray($attributes, [
             'username' => 'required|string',
             'password' => 'required|string'
         ]);
 
-        $this->getCutePetFacade->
+        $AuthorizationManageServer = new AuthorizationManageServer(new CutePetUserRepository());
+        return $AuthorizationManageServer->login($request,$attributes['username'], $attributes['password']);
 
-        $request = LoginLogic::requestWithParsedBodyByAdmin($request, $attributes['username'], $attributes['password']);
-
-        return app(LoginService::class)->password($request);
     }
 
     /**
@@ -120,14 +110,13 @@ class LoginController extends CutePetController
             'password' => $attributes['password'] ?? null,
         ];
 
-        $this->validateArray($attributes, [
-            'phone' => 'required|string',
-            'password' => 'required|string'
-        ]);
+//        $this->validateArray($attributes, [
+//            'phone' => 'required|string',
+//            'password' => 'required|string'
+//        ]);UserLogin
 
-        $request = LoginLogic::requestWithParsedBodyByAdmin($request, $attributes['phone'], $attributes['password']);
+        return $this->getCutePetFacade->UserLogin($request, $attributes['phone'], $attributes['password']);
 
-        return app(LoginService::class)->password($request);
     }
 
     /**

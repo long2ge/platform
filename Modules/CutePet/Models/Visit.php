@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Modules\User\Models;
-
+namespace Modules\CutePet\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

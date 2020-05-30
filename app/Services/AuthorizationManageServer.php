@@ -71,9 +71,8 @@ class AuthorizationManageServer
      * @param string $grantType 授予方式
      * @return ServerRequestInterface
      */
-    protected function requestWithParsedBody(
-        ServerRequestInterface $request, string $username, string $password, string $grantType
-    ) : ServerRequestInterface {
+    protected function requestWithParsedBody(ServerRequestInterface $request, string $username, string $password, string $grantType): ServerRequestInterface
+    {
         return $request->withParsedBody(
             [
                 'username' => $username,

@@ -8,21 +8,95 @@
         },
         "license": {
             "name": "Apache 2.0",
-            "url": "http://hema.com/"
+            "url": "http://platform.com/"
         },
         "version": "1.0.0"
     },
     "servers": [
         {
-            "url": "http://hema.com/",
+            "url": "http://platform.com/",
             "description": "L5 Swagger OpenApi dynamic host server"
         },
         {
-            "url": "http://haha.com/",
+            "url": "http://platform.com/",
             "description": "3252345345436346"
         }
     ],
     "paths": {
+        "/api/user/password": {
+            "post": {
+                "tags": [
+                    "用户组"
+                ],
+                "summary": "用户登录",
+                "description": "返回浏览器秘钥",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "description": "user 账户",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "user 密码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "username": "测试1234",
+                                "password": "123456"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token_type": {
+                                            "description": "秘钥类型",
+                                            "type": "string"
+                                        },
+                                        "expires_in": {
+                                            "description": "有效秒数",
+                                            "type": "int"
+                                        },
+                                        "access_token": {
+                                            "description": "访问秘钥码",
+                                            "type": "string"
+                                        },
+                                        "refresh_token": {
+                                            "description": "刷新秘钥码",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "api_key_security_example": {
+                                        "token_type": "Bearer",
+                                        "expires_in": 31536000,
+                                        "access_token": "22.33.aLcl6kE-44-55-ojITv9hzsJd-66-77-wTn7hNZxZdQ7C0CIH4dNcxLepP6-bazu-7-7",
+                                        "refresh_token": "1111"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "tags": [

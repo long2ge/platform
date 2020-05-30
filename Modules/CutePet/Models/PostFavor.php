@@ -1,7 +1,6 @@
 <?php
 
-namespace Modules\Post\Models;
-
+namespace Modules\CutePet\Models;
 use Modules\Core\Models\BaseModel;
 
 class PostFavor extends BaseModel

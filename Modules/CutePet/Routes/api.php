@@ -13,6 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/cutepet', function (Request $request) {
+//前台用户登录
+$router->post('/user/password', 'V1\Auth\LoginController@password');
+//前台用户注册
+$router->post('/user/login', 'V1\Auth\LoginController@register');
+
+
+$router->middleware('auth:cute_pet_api')
+    ->post('/aaa/test', function (Request $request) {
     return $request->user();
 });
+
+//Route::post('user/passwordd','Modules\CutePet\Http\Controllers\V1\Auth@password');
+//Route::middleware('auth:api')->get('/cutepet', function (Request $request) {
+//    return $request->user();
+//});

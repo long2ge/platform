@@ -1,7 +1,6 @@
 <?php
 
-namespace Modules\Core\Models;
-
+namespace Modules\CutePet\Models;
 use Carbon\Carbon;
 
 /**

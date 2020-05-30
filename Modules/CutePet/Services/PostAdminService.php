@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Admin\Services;
+namespace Modules\CutePet\Services;
 
 
 use http\QueryString;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\Admin\Models;
+namespace Modules\CutePet\Models;
 
 
 use Illuminate\Database\Eloquent\Model;

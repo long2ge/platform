@@ -52,6 +52,12 @@ return [
             'provider' => 'admin_users',
             'hash' => false,
         ],
+
+        'cute_pet_api' => [
+            'driver' => 'passport',
+            'provider' => 'cute_pet_users',
+        ],
+
     ],
 
     /*
@@ -82,7 +88,12 @@ return [
             'model' => Modules\Admin\Models\User::class,
         ],
 
-        // 'users' => [
+        'cute_pet_users' => [
+            'driver' => 'eloquent',
+            'model' => Modules\CutePet\Models\User::class,
+        ]
+
+        // 'users' => [         cute_pet_users
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],

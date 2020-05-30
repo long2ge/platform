@@ -12,12 +12,12 @@ namespace App\Http\Controllers;
  *      ),
  *     @OA\License(
  *         name="Apache 2.0",
- *         url="http://hema.com/"
+ *         url="http://platform.com/"
  *     )
  * )
  *
  *  @OA\Server(
- *      url="http://hema.com/",
+ *      url="http://platform.com/",
  *      description="L5 Swagger OpenApi dynamic host server",
  *     @OA\SecurityScheme(
  *     type="http",
@@ -28,7 +28,7 @@ namespace App\Http\Controllers;
  *  )
  *
  *  @OA\Server(
- *      url="http://haha.com/",
+ *      url="http://platform.com/",
  *      description="3252345345436346"
  *  )
  *

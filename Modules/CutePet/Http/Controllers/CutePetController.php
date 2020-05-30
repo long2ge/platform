@@ -2,11 +2,12 @@
 
 namespace Modules\CutePet\Http\Controllers;
 
+use App\Http\Controllers\AppController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class CutePetController extends Controller
+class CutePetController extends AppController
 {
     /**
      * Display a listing of the resource.

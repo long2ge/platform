@@ -6,9 +6,10 @@
  * Time: 11:03 PM
  */
 
-namespace Modules\Core\Logics;
+namespace Modules\CutePet\Logics;
 
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**

@@ -1,7 +1,8 @@
 <?php
 
 
-namespace Modules\User\Services;
+namespace Modules\CutePet\Services;
+
 
 
 use Dusterio\LumenPassport\LumenPassport;

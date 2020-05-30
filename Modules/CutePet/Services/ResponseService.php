@@ -6,7 +6,7 @@
  * Time: 20:02
  */
 
-namespace Modules\Post\Services;
+namespace Modules\CutePet\Services;
 
 use Illuminate\Support\Facades\DB;
 use Modules\Post\Models\Comment;

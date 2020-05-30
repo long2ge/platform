@@ -6,17 +6,14 @@
  * Time: 1:48 AM
  */
 
-namespace Modules\User\Services;
+namespace Modules\CutePet\Services;
 
 use Illuminate\Http\Response;
 use Laravel\Passport\Http\Controllers\HandlesOAuthErrors;
-use Modules\Core\Services\AuthorizationManageServer;
 use Modules\User\Exceptions\LoginException;
-use Modules\User\Logics\RegisterLogic;
-use Modules\User\Models\User;
-use Modules\User\Repositories\UserRepository;
+use App\Services\AuthorizationManageServer;
+use Laminas\Diactoros\Response as Psr7Response;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response as Psr7Response;
 
 /**
  * 登录服务

@@ -1,7 +1,6 @@
 <?php
 
 namespace Modules\CutePet\Models;
-
 use App\Models\BaseModel;
 
 class region extends BaseModel

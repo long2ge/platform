@@ -6,7 +6,7 @@
  * Time: 5:40 PM
  */
 
-namespace Modules\Post\Services;
+namespace Modules\CutePet\Services;
 
 
 use Illuminate\Http\Request;

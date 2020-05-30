@@ -6,7 +6,7 @@
  * Time: 0:43
  */
 
-namespace Modules\User\Services;
+namespace Modules\CutePet\Services;
 
 use Modules\User\Exceptions\UserException;
 use Modules\User\Models\ClassNeed;
