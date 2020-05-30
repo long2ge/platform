@@ -38,12 +38,12 @@ class PostService
      */
     public function deletePost($userId,$postId)
     {
-
-        Post::where('user_id',$userId)
+        $delete = Post::where('user_id',$userId)
             ->where('id',$postId)
             ->delete();
-
-        app(UserService::class)->userContribute($userId,'post_sum',-1);
+        if ($delete == 0){
+            abort(400 ,'帖子不存在');
+        }
     }
 
     /**显示用户帖子列表

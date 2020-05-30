@@ -149,6 +149,49 @@
                 ]
             }
         },
+        "/api/post": {
+            "delete": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "删除帖子",
+                "description": "删除用户名下帖子",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "description": "用户名下帖子ID",
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_id": 12
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FALSE/失败"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "tags": [
@@ -502,7 +545,7 @@
                 "scheme": "https"
             },
             "api_token": {
-                "securityDefinition": "Bearer",
+                "description": "Bearer",
                 "type": "apiKey",
                 "in": "header",
                 "name": "Authorization"
