@@ -9,17 +9,9 @@
 namespace Modules\CutePet\Services;
 
 
-use Illuminate\Http\Request;
-use Modules\Post\Models\Classify;
-use Modules\Post\Models\PostBrowse;
-use Modules\Post\Models\PostClassify;
-use Modules\Post\Models\PostComment;
-use Modules\Post\Models\PostCommentsPraise;
-use Modules\Post\Models\PostEnshrine;
-use Modules\Post\Models\PostPraise;
-use Modules\Post\Models\UserClassify;
-use Modules\Post\Post;
-use Modules\User\Services\UserService;
+
+
+use Modules\CutePet\Models\Post;
 
 /**
  *
@@ -38,7 +30,6 @@ class PostService
          abort(400 ,'发布失败，请检查网络');
         }
 
-        app(UserService::class)->userContribute($data['user_id'],'post_sum',1);
     }
 
     /**删除帖子

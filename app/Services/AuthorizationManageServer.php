@@ -53,7 +53,7 @@ class AuthorizationManageServer
      * @return mixed
      * @throws \Laravel\Passport\Exceptions\OAuthServerException
      */
-    public function login(ServerRequestInterface $request, $username, $password, string $grantType = 'password')
+    public function  login(ServerRequestInterface $request, $username, $password, string $grantType = 'password')
     {
         $request = $this->requestWithParsedBody($request, $username, $password, $grantType);
 

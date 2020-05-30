@@ -97,6 +97,58 @@
                 }
             }
         },
+        "/api/post/add": {
+            "post": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "发布帖子",
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "content",
+                                    "is_video"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "帖子标题",
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "description": "帖子内容",
+                                        "type": "string"
+                                    },
+                                    "is_video": {
+                                        "description": "帖子是否有视频 0没有 1有",
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "标题",
+                                "content": "内容",
+                                "is_video": "0"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "tags": [
@@ -448,6 +500,12 @@
                     }
                 },
                 "scheme": "https"
+            },
+            "api_token": {
+                "securityDefinition": "Bearer",
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization"
             }
         }
     },

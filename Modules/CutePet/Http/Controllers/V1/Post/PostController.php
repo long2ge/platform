@@ -1,24 +1,14 @@
 <?php
 
 
-namespace Modules\Post\Http\Controllers\V1;
+namespace Modules\CutePet\Http\Controllers\V1\Post;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Modules\Post\Models\Classify;
-use Modules\Post\Post;
-use Modules\Post\Services\PostService;
+use Modules\CutePet\Http\Controllers\CutePetController;
+use Modules\CutePet\Services\PostService;
 
-class PostController extends Controller
+class PostController extends CutePetController
 {
-    /**
-     * 测试
-     */
-    public function cs()
-    {
-
-    }
-
     /**
      * 发布帖子
      *
@@ -49,7 +39,6 @@ class PostController extends Controller
             'title'=>'required|string',
             'content'=>'required|string',
             'is_video'=>'required|int',
-            'is_vip'=>'required|int',
         ]);
 
         $data = $request->only(['title','content','is_video']);
@@ -140,14 +129,14 @@ class PostController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function indexOwn(Request $request)
-    {
-        $userId = $visitor = $request->user()->id;
-
-        $posts = app(PostService::class)->showUserId($userId,$visitor);
-
-        return response()->json($posts);
-    }
+//    public function indexOwn(Request $request)
+//    {
+//        $userId = $visitor = $request->user()->id;
+//
+//        $posts = app(PostService::class)->showUserId($userId,$visitor);
+//
+//        return response()->json($posts);
+//    }
 
     /**
      * 帖子列表

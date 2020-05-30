@@ -2,12 +2,9 @@
 
 
 namespace Modules\CutePet\Models;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Models\BaseModel;
-use Modules\Post\Models\PostEnshrine;
-use Modules\Post\Models\PostPraise;
-use Modules\User\Models\User;
 
 /**
  * 帖子模型

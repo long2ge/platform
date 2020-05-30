@@ -25,18 +25,4 @@ class CutePetFacade
 
     }
 
-    //用户登录
-    public function UserRegister($request,$username,$password)
-    {
-        $AuthorizationManageServer = new AuthorizationManageServer(new CutePetUserRepository());
-        return $AuthorizationManageServer->login($request, $username,$password);
-    }
-
-    //用户注册
-    public function UserLogin($request, $phone, $password)
-    {
-        $request = LoginLogic::requestWithParsedBodyByAdmin($request, $phone, $password);
-
-        return app(LoginService::class)->password($request);
-    }
 }

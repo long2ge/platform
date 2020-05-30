@@ -17,6 +17,19 @@ use Illuminate\Http\Request;
 $router->post('/user/password', 'V1\Auth\LoginController@password');
 //前台用户注册
 $router->post('/user/login', 'V1\Auth\LoginController@register');
+/**
+ * 帖子组
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/add', 'V1\Post\PostController@addPost');
+
+
+
+
+
+
+
+
+
 
 
 $router->middleware('auth:cute_pet_api')

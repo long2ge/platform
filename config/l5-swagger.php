@@ -128,6 +128,13 @@ return [
         | Examples of Security definitions
         |--------------------------------------------------------------------------
         */
+
+        'api_token' => [
+            'description' => 'Bearer',
+            'type' => 'apiKey',
+            'in' => 'header',
+            'name' => 'Authorization',
+        ],
         /*
         'api_key_security_example' => [ // Unique name of security
             'type' => 'apiKey', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".

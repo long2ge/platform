@@ -13,7 +13,7 @@ class CommentController extends CutePetController
     /**
      * @var commentService 评论服务
      */
-    private $getCutePet;
+//    private $getCutePet;
 
     /**
      * 构造函数
@@ -22,7 +22,7 @@ class CommentController extends CutePetController
      */
     public function __construct()
     {
-        $this->getCutePet = app(InvokeService::class)->getCutePet();
+//        $this->getCutePet = app(InvokeService::class)->getCutePet();
     }
 
     /**

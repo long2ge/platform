@@ -51,6 +51,7 @@ class LoginService
      */
     public function password(ServerRequestInterface $request)
     {
+
         return $this->withErrorHandling(function () use ($request) {
             $authorizationServer = app(AuthorizationManageServer::class)->getUserAuthorizationServer();
 

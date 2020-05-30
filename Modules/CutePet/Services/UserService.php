@@ -9,13 +9,7 @@
 namespace Modules\CutePet\Services;
 
 use Modules\User\Exceptions\UserException;
-use Modules\User\Models\ClassNeed;
-use Modules\User\Models\Letter;
-use Modules\User\Models\User;
-use Modules\User\Models\UserContribute;
-use Modules\User\Models\UserFans;
-use Modules\User\Models\Visit;
-use Modules\User\Repositories\UserRepository;
+
 
 class UserService
 {
@@ -113,44 +107,7 @@ class UserService
         }
     }
 
-    /**升级系统
-     * @param $userId //用户Id
-     */
-    public function classNeed($userId)
-    {
-        $classNeeds = ClassNeed::query()->orderBy('class', 'desc')->get();
 
-        $userContribute = UserContribute::where('user_id',$userId)->first();
 
-        foreach ($classNeeds as $classNeed){
-            if ($classNeed->post_sum <= $userContribute->post_sum
-                && $classNeed->comment_sum <= $userContribute->comment_sum
-                && $classNeed->enshrine_sum <= $userContribute->enshrine_sum
-                && $classNeed->fans_sum <= $userContribute->fans_sum
-                && $classNeed->idol_sum <= $userContribute->idol_sum) {
-                if ($classNeed->class != $userContribute->class
-                    && $classNeed->class >$userContribute->class){
-                    $userContribute->class = $classNeed->class;
-                    $userContribute->save();
-                }
-                    break;
-            }
-        }
 
-    }
-    /**
-     * 用户增加贡献
-     */
-    public function userContribute($userId,$type,$sum)
-    {
-        if (UserContribute::where('user_id',$userId)->exists()){
-            UserContribute::where('user_id',$userId)->increment($type,$sum);
-        }else{
-            UserContribute::create(['user_id'=>$userId]);
-        }
-        if ($sum >0 ){
-            $this->classNeed($userId);
-        }
-
-    }
 }

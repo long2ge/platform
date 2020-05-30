@@ -12,6 +12,9 @@ use App\Repositories\CutePetUserRepository;
 use App\Services\AuthorizationManageServer;
 use Illuminate\Http\Request;
 use Modules\CutePet\Http\Controllers\CutePetController;
+use Modules\CutePet\Logics\LoginLogic;
+use Modules\CutePet\Logics\RegisterLogic;
+use Modules\CutePet\Services\LoginService;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -67,57 +70,66 @@ class LoginController extends CutePetController
         ]);
 
         $AuthorizationManageServer = new AuthorizationManageServer(new CutePetUserRepository());
+
         return $AuthorizationManageServer->login($request,$attributes['username'], $attributes['password']);
 
     }
 
-    /**
-     * 注册
-     *
-     * @api               {POST} /api/admin/user/register 注册
-     * @apiSampleRequest  /api/admin/user/register
-     * @apiVersion 1.0.0
-     * @apiDescription
-     * developed by long2ge
-     *
-     * @apiGroup          Login
-     * @apiName           LoginRegister
-     *
-     * @apiUse            AuthJSONHeader
-     *
-     * @apiParam {String} phone 手机号码
-     * @apiParam {String} password 密码
-     *
-     * @apiSuccessExample  {json} 200 成功请求
-     *  {
-     *      "token_type": "Bearer", token的类型
-     *      "expires_in": 1295999, 有效时间（秒)）
-     *      "access_token": "123456", 请求token
-     *      "refresh_token": "123456" 刷新token
-     *  }
-     *
-     * @apiUse            RestfulError
-     * @param ServerRequestInterface $request
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
-     * @throws \Laravel\Passport\Exceptions\OAuthServerException
-     */
-    public function register(ServerRequestInterface $request)
-    {
-        $attributes = (array) $request->getParsedBody();
-        $attributes = [
-            'phone' => $attributes['phone'] ?? null,
-            'password' => $attributes['password'] ?? null,
-        ];
-
-//        $this->validateArray($attributes, [
+//    /**
+//     * 注册
+//     *
+//     * @api               {POST} /api/admin/user/register 注册
+//     * @apiSampleRequest  /api/admin/user/register
+//     * @apiVersion 1.0.0
+//     * @apiDescription
+//     * developed by long2ge
+//     *
+//     * @apiGroup          Login
+//     * @apiName           LoginRegister
+//     *
+//     * @apiUse            AuthJSONHeader
+//     *
+//     * @apiParam {String} phone 手机号码
+//     * @apiParam {String} password 密码
+//     *
+//     * @apiSuccessExample  {json} 200 成功请求
+//     *  {
+//     *      "token_type": "Bearer", token的类型
+//     *      "expires_in": 1295999, 有效时间（秒)）
+//     *      "access_token": "123456", 请求token
+//     *      "refresh_token": "123456" 刷新token
+//     *  }
+//     *
+//     * @apiUse            RestfulError
+//     * @param ServerRequestInterface $request
+//     * @return \Illuminate\Http\Response
+//     * @throws \Illuminate\Validation\ValidationException
+//     * @throws \Laravel\Passport\Exceptions\OAuthServerException
+//     */
+//    public function register(ServerRequestInterface $request)
+//    {
+//        $attributes = (array) $request->getParsedBody();
+//        $attributes = [
+//            'phone' => $attributes['phone'] ?? null,
+//            'password' => $attributes['password'] ?? null,
+//        ];
+//
+//        $this->validateWithArray($attributes, [
 //            'phone' => 'required|string',
 //            'password' => 'required|string'
-//        ]);UserLogin
-
-        return $this->getCutePetFacade->UserLogin($request, $attributes['phone'], $attributes['password']);
-
-    }
+//        ]);
+//
+//
+//        //注册
+//        RegisterLogic::passwordRegister($attributes['phone'],$attributes['password']);
+//
+//
+////        $request = LoginLogic::requestWithParsedBodyByAdmin($request, $attributes['phone'], $attributes['password']);
+////
+////        return app(LoginService::class)->password($request);
+//
+//
+//    }
 
     /**
      * 退出登录
