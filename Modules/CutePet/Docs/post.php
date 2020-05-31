@@ -56,3 +56,59 @@
  *     )
  * )
  */
+
+
+
+/**
+ * @OA\get(
+ *     path="/api/post/own",
+ *     tags={"帖子组"},
+ *     summary="用户自发帖子列表",
+ *     description="",
+ *     security={
+ *      {"api_token": {}}
+ *    },
+ *
+ *     @OA\Response(
+ *         response=200,
+ *         description="SUCCESS/成功",
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *              @OA\Property(property="current_page", type="int", description="页数"),
+ *              @OA\Property(property="data", type="object", description="帖子列表数据",
+ *                  @OA\Property(property="id", type="int", description="id"),
+ *                  @OA\Property(property="user_id", type="int", description="用户id"),
+ *                  @OA\Property(property="title", type="string", description="标题"),
+ *                  @OA\Property(property="content", type="string", description="内容"),
+ *                  @OA\Property(property="view", type="int", description="浏览量"),
+ *                  @OA\Property(property="hot", type="int", description="是否热帖 0否 1是"),
+ *                  @OA\Property(property="perfect", type="int", description="是否加精 0否 1是"),
+ *                  @OA\Property(property="top", type="int", description="是否设顶 0否 1是"),
+ *                  @OA\Property(property="recommend", type="int", description="是否推荐 0否 1是"),
+ *                  @OA\Property(property="shield", type="int", description="是否屏蔽 0否 1是"),
+ *                  @OA\Property(property="is_video", type="int", description="是否视频帖子 0否 1是"),
+ *                  @OA\Property(property="created_at", type="date", description="创建时间",),
+ *              ),
+ *              @OA\Property(property="first_page_url",type="string",description=""),
+ *              @OA\Property(property="from",type="int",description=""),
+ *              @OA\Property(property="last_page",type="int",description=""),
+ *              @OA\Property(property="last_page_url",type="string",description=""),
+ *              @OA\Property(property="next_page_url",type="string",description=""),
+ *              @OA\Property(property="path",type="string",description=""),
+ *              @OA\Property(property="per_page",type="int",description=""),
+ *              @OA\Property(property="prev_page_url",type="int",description=""),
+ *              @OA\Property(property="to",type="int",description=""),
+ *              @OA\Property(property="total",type="int",description=""),
+ *             ),
+ *        )
+ *     )
+ *
+ * )
+ */
+
+
+
+
+
+

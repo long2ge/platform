@@ -46,8 +46,10 @@ class PostService
         }
     }
 
-    /**显示用户帖子列表
-     * @param $showUserId
+    /**
+     * @param $userId
+     * @param null $visitor
+     * @return mixed
      */
     public function showUserId($userId,$visitor = null)
     {
@@ -62,7 +64,7 @@ class PostService
     /**
      *帖子列表
      */
-    public function index($select,$rank,$userId)
+    public function index($select,$rank,$userId,$paginate)
     {
         $postQuery = Post::query();
         $posts = $postQuery->with([
@@ -72,7 +74,7 @@ class PostService
         ])
             ->withCount(['postPraise','comment','enshrine'])
             ->orderBy($select,$rank)
-            ->paginate(3);
+            ->paginate($paginate);
 
         $postIds = $posts->pluck('id');
 
@@ -449,3 +451,88 @@ class PostService
 //        return $post->speechCount;
 //    }
 //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// *             "data": [
+// *              {
+// *              "id": 16,
+// *              "user_id": 10000009,
+// *              "title": "123",
+// *              "content": "1231",
+// *              "view": 0,
+// *              "hot": 0,
+// *              "perfect": 0,
+// *              "top": 0,
+// *              "recommend": 0,
+// *              "shield": 0,
+// *              "is_vip": 0,
+// *              "is_video": 0,
+// *              "created_at": "2020-05-30T14:20:59.000000Z",
+// *              "updated_at": "2020-05-30T14:20:59.000000Z",
+// *              "deleted_at": null
+// *              }
+// *              ],
+
+
+
+
+
+
+
+
+
+
+// *             @OA\Schema(
+// *              @OA\Property(property="current_page", type="int", description="页数"),
+// *              @OA\Property(property="data", type="array", description="帖子列表数据"),
+// *              @OA\Property(property="first_page_url",type="string",description=""),
+// *              @OA\Property(property="from",type="int",description=""),
+// *              @OA\Property(property="last_page",type="int",description=""),
+// *              @OA\Property(property="last_page_url",type="string",description=""),
+// *              @OA\Property(property="next_page_url",type="string",description=""),
+// *              @OA\Property(property="path",type="string",description=""),
+// *              @OA\Property(property="per_page",type="int",description=""),
+// *              @OA\Property(property="prev_page_url",type="int",description=""),
+// *              @OA\Property(property="to",type="int",description=""),
+// *              @OA\Property(property="total",type="int",description=""),
+// *             ),

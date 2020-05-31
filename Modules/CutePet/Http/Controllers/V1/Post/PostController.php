@@ -129,14 +129,15 @@ class PostController extends CutePetController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-//    public function indexOwn(Request $request)
-//    {
-//        $userId = $visitor = $request->user()->id;
-//
-//        $posts = app(PostService::class)->showUserId($userId,$visitor);
-//
-//        return response()->json($posts);
-//    }
+    public function indexOwn(Request $request)
+    {
+
+        $userId = $visitor = $request->user()->id;
+
+        $posts = app(PostService::class)->showUserId($userId,$visitor);
+
+        return response()->json($posts);
+    }
 
     /**
      * 帖子列表
@@ -194,11 +195,13 @@ class PostController extends CutePetController
      */
     public function index(Request $request)
     {
-        $userId = $request->user()->id;
-        $select = $request->input('select');
-        $rank = $request->input('rank');
 
-        $posts = app(PostService::class)->index($select,$rank,$userId);
+        $userId = $request->user()->id;
+
+        $select = $request->input('select') ?? 'created_at';
+        $rank = $request->input('rank') ??  0;
+        $paginate = $request->input('paginate')??10;
+        $posts = app(PostService::class)->index($select,$rank,$userId,$paginate);
 
         return response()->json($posts);
     }

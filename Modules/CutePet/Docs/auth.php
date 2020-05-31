@@ -22,7 +22,7 @@
  *              @OA\Property(property="expires_in", type="int", description="有效秒数"),
  *              @OA\Property(property="access_token",type="string",description="访问秘钥码"),
  *              @OA\Property(property="refresh_token",type="string",description="刷新秘钥码"),
-*             ),
+ *             ),
  *         example={"api_key_security_example": {
  *              "token_type": "Bearer",
  *              "expires_in": 31536000,

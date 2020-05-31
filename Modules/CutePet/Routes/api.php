@@ -32,9 +32,15 @@ $router->middleware('auth:cute_pet_api')->post('/post/add', 'V1\Post\PostControl
  */
 $router->middleware('auth:cute_pet_api')->delete('/post', ['uses' => 'V1\Post\PostController@deletePost']);
 
+/**
+ * 自发帖子列表
+ */
+$router->middleware('auth:cute_pet_api')->get('/post/own', ['uses' => 'V1\Post\PostController@indexOwn']);
 
-
-
+/**
+ * 贴子列表
+ */
+$router->middleware('auth:cute_pet_api')->get('/post/index', ['uses' => 'V1\Post\PostController@index']);
 
 
 
