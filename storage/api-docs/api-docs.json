@@ -192,6 +192,132 @@
                 ]
             }
         },
+        "/api/post/own": {
+            "get": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "用户自发帖子列表",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "description": "页数",
+                                            "type": "int"
+                                        },
+                                        "data": {
+                                            "description": "帖子列表数据",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "id",
+                                                    "type": "int"
+                                                },
+                                                "user_id": {
+                                                    "description": "用户id",
+                                                    "type": "int"
+                                                },
+                                                "title": {
+                                                    "description": "标题",
+                                                    "type": "string"
+                                                },
+                                                "content": {
+                                                    "description": "内容",
+                                                    "type": "string"
+                                                },
+                                                "view": {
+                                                    "description": "浏览量",
+                                                    "type": "int"
+                                                },
+                                                "hot": {
+                                                    "description": "是否热帖 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "perfect": {
+                                                    "description": "是否加精 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "top": {
+                                                    "description": "是否设顶 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "recommend": {
+                                                    "description": "是否推荐 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "shield": {
+                                                    "description": "是否屏蔽 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "is_video": {
+                                                    "description": "是否视频帖子 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "created_at": {
+                                                    "description": "创建时间",
+                                                    "type": "date"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "first_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "from": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "last_page": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "last_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "next_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "path": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "per_page": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "prev_page_url": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "to": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "total": {
+                                            "description": "",
+                                            "type": "int"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "tags": [

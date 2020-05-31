@@ -12,8 +12,6 @@ use App\Repositories\CutePetUserRepository;
 use App\Services\AuthorizationManageServer;
 use Illuminate\Http\Request;
 use Modules\CutePet\Http\Controllers\CutePetController;
-use Modules\CutePet\Logics\LoginLogic;
-use Modules\CutePet\Logics\RegisterLogic;
 use Modules\CutePet\Services\LoginService;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -71,7 +69,7 @@ class LoginController extends CutePetController
 
         $AuthorizationManageServer = new AuthorizationManageServer(new CutePetUserRepository());
 
-        return $AuthorizationManageServer->login($request,$attributes['username'], $attributes['password']);
+        return $AuthorizationManageServer->loginByPassword($request,$attributes['username'], $attributes['password']);
 
     }
 

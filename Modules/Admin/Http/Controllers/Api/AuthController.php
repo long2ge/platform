@@ -9,7 +9,6 @@
 namespace Modules\Admin\Http\Controllers\Api;
 
 use App\Services\AuthorizationManageServer;
-use Illuminate\Http\Request;
 use Modules\Admin\Http\Controllers\AdminAppController;
 use Modules\Admin\Repositories\UserRepository;
 use Psr\Http\Message\ServerRequestInterface;
@@ -46,7 +45,7 @@ class AuthController extends AdminAppController
 
         $AuthorizationManageServer = new AuthorizationManageServer(new UserRepository());
 
-        return $AuthorizationManageServer->login($request, $attributes['username'], $attributes['password']);
+        return $AuthorizationManageServer->loginByPassword($request, $attributes['username'], $attributes['password']);
     }
 
 }
