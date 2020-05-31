@@ -10,20 +10,7 @@ use Modules\Post\Services\CommentService;
 
 class CommentController extends CutePetController
 {
-    /**
-     * @var commentService 评论服务
-     */
-//    private $getCutePet;
 
-    /**
-     * 构造函数
-     * commentService constructor.
-     * @param commentService $commentService
-     */
-    public function __construct()
-    {
-//        $this->getCutePet = app(InvokeService::class)->getCutePet();
-    }
 
     /**
      * 发表评论

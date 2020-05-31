@@ -192,15 +192,20 @@ class PostController extends CutePetController
      *  "total": 5 *
      *  }
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function index(Request $request)
     {
-
+//        $this->validate($request, [
+//            'select' => 'nullable|string',
+//            'rank' => 'nullable|string',
+//            'paginate' => 'nullable|int',
+//        ]);
         $userId = $request->user()->id;
 
-        $select = $request->input('select') ?? 'created_at';
-        $rank = $request->input('rank') ??  0;
-        $paginate = $request->input('paginate')??10;
+        $select = 'created_at';
+        $rank = 'desc';
+        $paginate = $request->input('paginate') ?? 10;
         $posts = app(PostService::class)->index($select,$rank,$userId,$paginate);
 
         return response()->json($posts);

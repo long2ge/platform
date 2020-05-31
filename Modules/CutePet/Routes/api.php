@@ -42,6 +42,16 @@ $router->middleware('auth:cute_pet_api')->get('/post/own', ['uses' => 'V1\Post\P
  */
 $router->middleware('auth:cute_pet_api')->get('/post/index', ['uses' => 'V1\Post\PostController@index']);
 
+/**
+ * 帖子评论
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/comment', ['uses' => 'V1\Post\PostCommentController@store']);
+
+/**
+ * 帖子评论
+ */
+$router->middleware('auth:cute_pet_api')->put('/post/comment', ['uses' => 'V1\Post\PostCommentController@upPostComment']);
+
 
 
 

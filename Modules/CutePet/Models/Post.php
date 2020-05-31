@@ -68,6 +68,11 @@ class Post extends BaseModel
         return $this->hasMany(PostEnshrine::class, 'post', 'id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class,'post_id','id');
+    }
+
 }
 //<?php
 //
@@ -121,11 +126,7 @@ class Post extends BaseModel
 //    {
 //        return $this->belongsTo(User::class);
 //    }
-//
-//    public function comments()
-//    {
-//        return $this->hasMany(Comment::class);
-//    }
+
 //
 //    public function postFavors()
 //    {
