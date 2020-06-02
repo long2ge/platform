@@ -2,9 +2,8 @@
 
 namespace Modules\CutePet\Models;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Models\BaseModel;
-use Modules\User\Models\User;
 
 class Comment extends BaseModel
 {

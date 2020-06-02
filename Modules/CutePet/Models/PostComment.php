@@ -1,11 +1,16 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Long
+ * Date: 2020/5/31
+ * Time: 16:43
+ */
 
 namespace Modules\CutePet\Models;
 
+
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Models\BaseModel;
-use Modules\User\Models\User;
 
 class PostComment extends BaseModel
 {
@@ -32,43 +37,14 @@ class PostComment extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'post_id',
-        'post_user_id',
-        'tower',
-        'content',
-        'shield',
+        'post_id',//所属帖子ID
+        'comment_user_id',//评论用户ID
+        'comment_content',//评论内容
+        'praise',//点赞数
+        'astrict',//0不限制，1屏蔽，2已删除
+        'type',//类型 0回复主帖，1回复评论
+        'reply_comment_id',//回复的评论ID  （type为1的数据）
+        'reply_comment_user_id',//回复的评论用户ID  （type为1的数据）
     ];
 
-    /**
-     * 关联评论点赞表
-     */
-    public function commentPraise()
-    {
-        return $this->hasMany(PostCommentsPraise::class,'comment_id','id');
-    }
-
-    /**关联用户
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function user()
-    {
-        return $this->hasOne(User::class,'id','user_id');
-    }
-
-    /**
-     * 关联评论
-     */
-    public function comment()
-    {
-        return $this->hasMany(PostComment::class,'post_id','id');
-    }
-
-    /**
-     * 关联收藏
-     */
-    public function enshrine()
-    {
-        return $this->hasMany(PostEnshrine::class,'post_id','id');
-    }
 }

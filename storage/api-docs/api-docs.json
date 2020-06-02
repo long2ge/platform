@@ -318,6 +318,151 @@
                 ]
             }
         },
+        "/api/post/comment": {
+            "put": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "修改评论",
+                "description": "修改评论数据发布者ID 与 登录用户ID一致",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_comment_id",
+                                    "up_comment_content"
+                                ],
+                                "properties": {
+                                    "post_comment_id": {
+                                        "description": "修改的评论ID",
+                                        "type": "int"
+                                    },
+                                    "up_comment_content": {
+                                        "description": "修改的评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_comment_id": "1",
+                                "up_comment_content": "修改评论内容"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FALSE/失败,评论不存在"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "评论（回复主帖）",
+                "description": "评论（回复主帖）//（回复帖内的评论接口 /api/post/comment/reply）",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id",
+                                    "comment_content"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "description": "帖子ID",
+                                        "type": "int"
+                                    },
+                                    "comment_content": {
+                                        "description": "评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_id": "1",
+                                "comment_content": "内容"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FAILED/失败"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post/comment/reply": {
+            "post": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "回复评论",
+                "description": "回复评论",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comment_id",
+                                    "reply_content"
+                                ],
+                                "properties": {
+                                    "comment_id": {
+                                        "description": "评论ID",
+                                        "type": "int"
+                                    },
+                                    "reply_content": {
+                                        "description": "回复评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "comment_id": "15",
+                                "reply_content": "回复内容"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FAILED/失败"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "tags": [

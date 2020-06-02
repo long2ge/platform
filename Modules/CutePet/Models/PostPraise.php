@@ -3,7 +3,9 @@
 
 namespace Modules\CutePet\Models;
 
-use Modules\Core\Models\BaseModel;
+
+
+use App\Models\BaseModel;
 
 class PostPraise extends BaseModel
 {

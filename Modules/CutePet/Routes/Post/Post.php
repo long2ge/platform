@@ -10,25 +10,6 @@ $api->get('/cs', [
     'uses' => 'PostController@cs',
 ]);
 
-/**
- * 发布帖子
- */
-$api->post('/', ['uses' => 'PostController@addPost']);
-
-/**
- * 删除帖子
- */
-$api->delete('/', ['uses' => 'PostController@deletePost']);
-
-/**
- * 自发帖子列表
- */
-$api->get('/own', ['uses' => 'PostController@showOwnPost']);
-
-/**
- * 贴子列表
- */
-$api->get('/index', ['uses' => 'PostController@index']);
 
 /**
  *回复列表

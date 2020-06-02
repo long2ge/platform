@@ -42,6 +42,34 @@ $router->middleware('auth:cute_pet_api')->get('/post/own', ['uses' => 'V1\Post\P
  */
 $router->middleware('auth:cute_pet_api')->get('/post/index', ['uses' => 'V1\Post\PostController@index']);
 
+/****************************************************评论**************************************************/
+
+
+ /**
+ * 发布主帖评论
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/comment', ['uses' => 'V1\Post\PostCommentController@store']);
+
+/**
+ * 回复评论
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/comment/reply   ', ['uses' => 'V1\Post\PostCommentController@commentReply']);
+
+/**
+ * 修改评论
+ */
+$router->middleware('auth:cute_pet_api')->put('/post/comment', ['uses' => 'V1\Post\PostCommentController@upPostComment']);
+
+/**
+ * 删除评论
+ */
+$router->middleware('auth:cute_pet_api')->delete('/post/comment', ['uses' => 'V1\Post\PostCommentController@deleteComment']);
+
+/**
+ * 评论详情
+ */
+$router->middleware('auth:cute_pet_api')->get('/post/comment', ['uses' => 'V1\Post\PostCommentController@show']);
+
 
 
 
