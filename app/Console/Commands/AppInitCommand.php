@@ -102,7 +102,7 @@ class AppInitCommand extends Command
 
         $this->createdDir($source);
 
-        $command = "[ -d {$target} ] || sudo ln -s {$source} {$target}";
+        $command = "[ -d {$target} ] || ln -s {$source} {$target}";
 
         $this->info(shell_exec($command));
     }
@@ -118,7 +118,7 @@ class AppInitCommand extends Command
     {
         if (is_dir($dirPath)) return;
 
-        $command = "[ -d {$dirPath} ] || sudo mkdir -p {$dirPath}";
+        $command = "[ -d {$dirPath} ] || mkdir -p {$dirPath}";
 
         $this->info(shell_exec($command));
     }

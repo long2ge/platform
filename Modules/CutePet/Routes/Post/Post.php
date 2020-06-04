@@ -31,6 +31,12 @@ $api->post('/classify', ['uses' => 'PostController@addPostClassify']);
 
 ///////////////////////////////////////////后台
 /**
+ *回复列表
+ */
+$api->get('/reply', ['uses' => 'PostController@indexReply']);
+
+
+/**
  * 关注帖子列表
  */
 $api->get('/enshrine', ['uses' => 'PostController@indexEnshrine']);
