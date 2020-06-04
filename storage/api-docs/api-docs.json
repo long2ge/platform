@@ -746,14 +746,6 @@
                         }
                     }
                 },
-                "responses": {
-                    "204": {
-                        "description": "SUCCESS/成功"
-                    },
-                    "400": {
-                        "description": "FAILED/失败"
-                    }
-                },
                 "security": [
                     {
                         "api_token": []
