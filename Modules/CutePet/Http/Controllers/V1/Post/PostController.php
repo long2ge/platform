@@ -35,6 +35,7 @@ class PostController extends CutePetController
      */
     public function addPost(Request $request)
     {
+
         $this->validate($request,[
             'title'=>'required|string',
             'content'=>'required|string',
@@ -800,8 +801,15 @@ class PostController extends CutePetController
     }
 
     /**
+     *★帖子点赞
      *
      */
+    public function praise(Request $request,$postId)
+    {
+        app(PostService::class)->praise($request->user(),$postId);
+
+        return response()->json([], 204);
+    }
 
 
 

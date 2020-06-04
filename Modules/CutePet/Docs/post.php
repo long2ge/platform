@@ -107,58 +107,23 @@
  * )
  */
 
-
-
 /**
  * @OA\post(
- *     path="/api/post/comment",
+ *     path="/api/post/praise/{post_id}",
+ *     @OA\Parameter(
+ *       name="post_id",
+ *       in="path",
+ *       required=true,
+ *       description="10",
+ *       @OA\Schema(type="integer")
+ *     ),
  *     tags={"帖子组"},
- *     summary="发布帖子评论/回复评论",
- *     description="回复主贴 type : 0 ，回复评论 type : 1(回复评论增加URL数据// reply_comment_id ：要回复的评论ID,// reply_comment_user_id ：要回复的评论用户ID)",
+ *     summary="帖子点赞",
+ *     description="点赞取消点赞",
  *     security={
  *      {"api_token": {}}
  *    },
- *     @OA\Response(
- *         response=204,
- *         description="SUCCESS/成功",
- *         @OA\JsonContent(
- *              required={"post_id", "comment_user_id","comment_content","type"},
- *              @OA\Property(property="post_id", type="int", description="帖子ID"),
- *              @OA\Property(property="comment_user_id", type="int", description="发布评论用户ID"),
- *              @OA\Property(property="comment_content", type="string", description="评论内容"),
- *              @OA\Property(property="type", type="int", description="发布类型0回复主贴 1回复评论"),
- *              @OA\Property(property="reply_comment_id", type="int", description="上级评论ID"),
- *              @OA\Property(property="reply_comment_user_id", type="int", description="上级评论用户ID"),
- *              example={
- *                  "post_id": "10",
- *                  "comment_user_id": "100009",
- *                  "comment_content":"评论的内容",
- *                  "type":"1",
- *                  "reply_comment_id":"3",
- *                  "reply_comment_user_id":"100008",
- *              }),
- *     )
  *
- * )
- */
-
-
-
-/**
- * @OA\put(
- *     path="/api/post/comment",
- *     tags={"帖子组"},
- *     summary="修改帖子评论/回复评论",
- *     description="修改评论数据发布者ID 与 登录用户ID一致",
- *     security={
- *      {"api_token": {}}
- *    },
- *     @OA\RequestBody(@OA\JsonContent(
- *              required={"post_comment_id", "up_comment_content"},
- *              @OA\Property(property="post_comment_id", type="int", description="修改的评论ID"),
- *              @OA\Property(property="up_comment_content", type="string", description="修改的评论内容"),
- *              example={"post_comment_id": "1","up_comment_content": "修改评论内容",}
- *     )),
  *     @OA\Response(
  *         response=204,
  *         description="SUCCESS/成功",
@@ -166,4 +131,5 @@
  *
  * )
  */
+
 

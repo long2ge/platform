@@ -12,6 +12,8 @@ namespace Modules\CutePet\Services;
 
 
 use Modules\CutePet\Models\Post;
+use Modules\CutePet\Models\PostPraise;
+use Modules\CutePet\Models\User;
 
 /**
  *
@@ -318,6 +320,43 @@ class PostService
 
         return $postClassifys;
     }
+
+    /**
+     * 帖子点赞
+     */
+    public function praise(User $user,$postId)
+    {
+        if (! Post::where('id',$postId)->exists()){
+            abort(404,'帖子不存在');
+        }
+
+        if (PostPraise::where('user_id',$user->id)->where('post_id',$postId)->exists()){
+            PostPraise::where('user_id',$user->id)->where('post_id',$postId)->delete();
+        }else{
+            PostPraise::create(['user_id'=>$user->id, 'post_id'=>$postId,]);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
