@@ -7,7 +7,7 @@
  */
 
 /**
- * @OA\post(
+ * @OA\Post(
  *     path="/api/post/comment",
  *     tags={"帖子评论组"},
  *     summary="评论（回复主帖）",
@@ -21,7 +21,6 @@
  *              @OA\Property(property="comment_content", type="string", description="评论内容"),
  *              example={"post_id": "1","comment_content": "内容"}
  *     )),
- *
  *     @OA\Response(
  *         response=200,
  *         description="SUCCESS/成功",
@@ -30,7 +29,6 @@
  *         response=400,
  *         description="FAILED/失败",
  *     ),
- *
  * )
  */
 
@@ -63,7 +61,7 @@
  */
 
 /**
- * @OA\POST(
+ * @OA\Put(
  *     path="/api/post/comment",
  *     tags={"帖子评论组"},
  *     summary="修改评论",
@@ -71,11 +69,11 @@
  *     security={
  *      {"api_token": {}}
  *    },
- *     @OA\RequestBody(required=true, @OA\JsonContent(
- *          required={"post_comment_id", "up_comment_content"},
- *          @OA\Property(property="post_comment_id", type="integer", description="修改的评论ID"),
- *          @OA\Property(property="up_comment_content", type="string", description="修改的评论内容"),
- *          example={"post_comment_id": "1","up_comment_content": "修改评论内容"}
+ *    @OA\RequestBody(@OA\JsonContent(
+ *              required={"post_comment_id", "up_comment_content"},
+ *              @OA\Property(property="post_comment_id", type="integer", description="修改的评论ID"),
+ *              @OA\Property(property="up_comment_content", type="string", description="修改的评论内容"),
+ *              example={"post_comment_id": "1","up_comment_content": "修改评论内容"}
  *     )),
  *     @OA\Response(
  *         response=204,
