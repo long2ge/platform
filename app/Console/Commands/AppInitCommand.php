@@ -58,14 +58,13 @@ class AppInitCommand extends Command
         // 生成系统目录
         foreach ([
             '/app/Docs',
-            '/storage/public',
         ] as $dir) {
             $this->createdDir(base_path($dir));
         }
 
         // 生成系统软链
         foreach ([
-            "/storage/public/" => "/public/storage",
+            // "/storage/public/" => "/public/storage",
          ] as $source => $target) {
             $this->createdSoftLink($source, $target);
         }
@@ -78,7 +77,7 @@ class AppInitCommand extends Command
             foreach ($modules as $module => $status) {
                 if (! $status) continue;
 
-                $source = "/Modules/{$module}/Docs/";
+                $source = "/Modules/{$module}/Docs";
                 $target = "/app/Docs/{$module}";
                 $this->createdSoftLink($source, $target);
             }
@@ -102,8 +101,17 @@ class AppInitCommand extends Command
 
         $this->createdDir($source);
 
-        $command = "[ -d {$target} ] || ln -s {$source} {$target}";
+        // ln -s /home/vagrant/code/yq-dd/platform/Modules/Admin/Docs /home/vagrant/code/yq-dd/platform/app/Docs/Admin
 
+        // 清理旧文件
+        $command = "rm -rf $target";
+        $this->info('command : ' . $command);
+        $this->info(shell_exec($command));
+
+        $command = "ln -s {$source} {$target}";
+        // $command = "[ -d {$source} ] || ln -s {$source} {$target}";
+
+        $this->info('command : ' . $command);
         $this->info(shell_exec($command));
     }
 
@@ -119,7 +127,6 @@ class AppInitCommand extends Command
         if (is_dir($dirPath)) return;
 
         $command = "[ -d {$dirPath} ] || mkdir -p {$dirPath}";
-
         $this->info(shell_exec($command));
     }
 

@@ -17,3 +17,4 @@ yarn-error.log
 /storage/laravels.json
 /storage/laravels.pid
 _ide_helper.php
+/app/Docs/!demo.php
