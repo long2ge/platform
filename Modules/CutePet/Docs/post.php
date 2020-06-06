@@ -107,7 +107,7 @@
 
 
 /**
- * @OA\post(
+ * @OA\POST(
  *     path="/api/post/praise/{post_id}",
  *     @OA\Parameter(
  *       name="post_id",
