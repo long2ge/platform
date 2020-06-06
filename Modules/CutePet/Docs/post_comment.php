@@ -65,34 +65,6 @@
  * )
  */
 
-
-/**
- * @OA\PUT(
- *     path="/api/post/comment",
- *     tags={"帖子评论组"},
- *     summary="修改评论",
- *     description="修改评论数据发布者ID 与 登录用户ID一致",
- *     security={
- *      {"api_token": {}}
- *    },
- *     @OA\RequestBody(required=true, @OA\JsonContent(
- *          required={"post_comment_id", "up_comment_content"},
- *          @OA\Property(property="post_comment_id", type="integer", description="修改的评论ID"),
- *          @OA\Property(property="up_comment_content", type="string", description="修改的评论内容"),
- *          example={"post_comment_id": "1","up_comment_content": "修改评论内容"}
- *     )),
- *     @OA\Response(
- *         response=204,
- *         description="SUCCESS/成功",
- *     ),
- *      @OA\Response(
- *          response=400,
- *          description="FALSE/失败,评论不存在",
- *     ),
- * )
- */
-
-
 /**
  * @OA\delete(
  *     path="/api/post/comment",
