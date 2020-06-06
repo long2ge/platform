@@ -33,7 +33,7 @@
  */
 
 /**
- * @OA\post(
+ * @OA\Post(
  *     path="/api/post/comment/reply",
  *     tags={"帖子评论组"},
  *     summary="回复评论",
@@ -61,7 +61,7 @@
  */
 
 /**
- * @OA\PUT(
+ * @OA\Put(
  *     path="/api/post/comment",
  *     tags={"帖子评论组"},
  *     summary="修改评论",
@@ -69,7 +69,7 @@
  *     security={
  *      {"api_token": {}}
  *    },
- *     @OA\RequestBody(required=true, @OA\JsonContent(
+ *     @OA\RequestBody(@OA\JsonContent(
  *          required={"post_comment_id", "up_comment_content"},
  *          @OA\Property(property="post_comment_id", type="integer", description="修改的评论ID"),
  *          @OA\Property(property="up_comment_content", type="string", description="修改的评论内容"),
@@ -87,7 +87,7 @@
  */
 
 /**
- * @OA\delete(
+ * @OA\Delete(
  *     path="/api/post/comment",
  *     tags={"帖子评论组"},
  *     summary="删除评论",
