@@ -14,6 +14,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "hhxsv5/laravel-s": "~3.7.0",
+        "jacobcyl/ali-oss-storage": "^2.1",
         "laravel/framework": "^7.0",
         "laravel/horizon": "^4.3",
         "laravel/passport": "^9.1",
