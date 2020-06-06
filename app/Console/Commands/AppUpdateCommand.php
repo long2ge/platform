@@ -39,12 +39,18 @@ class AppUpdateCommand extends Command
     public function handle()
     {
         $commands = [
-            'php artisan l5-swagger:generate',
-            'php artisan ide-helper:generate',
-            'php artisan ide-helper:meta',
+            'php artisan l5-swagger:generate' => 1,
+            'php artisan ide-helper:generate' => 0,
+            'php artisan ide-helper:meta' => 0,
         ];
 
-        foreach ($commands as $command) {
+        foreach ($commands as $command => $result) {
+
+            if (! $result &&
+                app()->isProduction()) {
+                continue;
+            }
+
             $this->info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
             $this->info('start exec ' . $command . "\r\n");
             $this->info(shell_exec($command));
