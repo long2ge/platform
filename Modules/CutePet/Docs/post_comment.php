@@ -85,7 +85,6 @@
  *         response=204,
  *         description="SUCCESS/成功",
  *     ),
- *
  *      @OA\Response(
  *          response=400,
  *          description="FALSE/失败,评论不存在",
@@ -135,7 +134,7 @@
  *              example={"post_comment_id": "16"}
  *     )),
  *     @OA\Response(
- *         response=204,
+ *         response=200,
  *         description="SUCCESS/成功",
  *
  *         @OA\MediaType(

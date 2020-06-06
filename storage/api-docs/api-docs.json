@@ -23,6 +23,736 @@
         }
     ],
     "paths": {
+        "/api/user/password": {
+            "post": {
+                "tags": [
+                    "用户组"
+                ],
+                "summary": "用户登录",
+                "description": "返回浏览器秘钥",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "description": "user 账户",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "user 密码",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "username": "测试1234",
+                                "password": "123456"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token_type": {
+                                            "description": "秘钥类型",
+                                            "type": "string"
+                                        },
+                                        "expires_in": {
+                                            "description": "有效秒数",
+                                            "type": "int"
+                                        },
+                                        "access_token": {
+                                            "description": "访问秘钥码",
+                                            "type": "string"
+                                        },
+                                        "refresh_token": {
+                                            "description": "刷新秘钥码",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "api_key_security_example": {
+                                        "token_type": "Bearer",
+                                        "expires_in": 31536000,
+                                        "access_token": "22.33.aLcl6kE-44-55-ojITv9hzsJd-66-77-wTn7hNZxZdQ7C0CIH4dNcxLepP6-bazu-7-7",
+                                        "refresh_token": "1111"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/post/add": {
+            "post": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "发布帖子",
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "content",
+                                    "is_video"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "帖子标题",
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "description": "帖子内容",
+                                        "type": "string"
+                                    },
+                                    "is_video": {
+                                        "description": "帖子是否有视频 0没有 1有",
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "title": "标题",
+                                "content": "内容",
+                                "is_video": "0"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post": {
+            "delete": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "删除帖子",
+                "description": "删除用户名下帖子",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "description": "用户名下帖子ID",
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_id": 12
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FALSE/失败"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post/own": {
+            "get": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "用户自发帖子列表",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "description": "页数",
+                                            "type": "int"
+                                        },
+                                        "data": {
+                                            "description": "帖子列表数据",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "id",
+                                                    "type": "int"
+                                                },
+                                                "user_id": {
+                                                    "description": "用户id",
+                                                    "type": "int"
+                                                },
+                                                "title": {
+                                                    "description": "标题",
+                                                    "type": "string"
+                                                },
+                                                "content": {
+                                                    "description": "内容",
+                                                    "type": "string"
+                                                },
+                                                "view": {
+                                                    "description": "浏览量",
+                                                    "type": "int"
+                                                },
+                                                "hot": {
+                                                    "description": "是否热帖 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "perfect": {
+                                                    "description": "是否加精 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "top": {
+                                                    "description": "是否设顶 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "recommend": {
+                                                    "description": "是否推荐 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "shield": {
+                                                    "description": "是否屏蔽 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "is_video": {
+                                                    "description": "是否视频帖子 0否 1是",
+                                                    "type": "int"
+                                                },
+                                                "created_at": {
+                                                    "description": "创建时间",
+                                                    "type": "date"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "first_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "from": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "last_page": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "last_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "next_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "path": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "per_page": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "prev_page_url": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "to": {
+                                            "description": "",
+                                            "type": "int"
+                                        },
+                                        "total": {
+                                            "description": "",
+                                            "type": "int"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post/praise/{post_id}": {
+            "post": {
+                "tags": [
+                    "帖子组"
+                ],
+                "summary": "帖子点赞",
+                "description": "点赞取消点赞",
+                "parameters": [
+                    {
+                        "name": "post_id",
+                        "in": "path",
+                        "description": "10",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post/comment": {
+            "get": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "评论详情",
+                "description": "",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comment_id"
+                                ],
+                                "properties": {
+                                    "comment_id": {
+                                        "description": "评论ID",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_comment_id": "16"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "评论ID",
+                                            "type": "integer"
+                                        },
+                                        "post_id": {
+                                            "description": "所属帖子ID",
+                                            "type": "integer"
+                                        },
+                                        "comment_user_id": {
+                                            "description": "发表评论者ID",
+                                            "type": "integer"
+                                        },
+                                        "comment_content": {
+                                            "description": "评论内容",
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "description": "评论类型 0回复主贴 1回复评论",
+                                            "type": "integer"
+                                        },
+                                        "reply_comment_id": {
+                                            "description": "上级评论ID",
+                                            "type": "integer"
+                                        },
+                                        "reply_comment_user_id": {
+                                            "description": "上级评论用户ID",
+                                            "type": "integer"
+                                        },
+                                        "praise": {
+                                            "description": "获得点赞数",
+                                            "type": "integer"
+                                        },
+                                        "astrict": {
+                                            "description": "限制情况 0不限制，1屏蔽，2已删除",
+                                            "type": "integer"
+                                        },
+                                        "created_at": {
+                                            "description": "发表时间",
+                                            "type": "date"
+                                        },
+                                        "updated_at": {
+                                            "description": "修改时间",
+                                            "type": "date"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "FALSE/失败,评论不存在"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "修改评论",
+                "description": "修改评论数据发布者ID 与 登录用户ID一致",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_comment_id",
+                                    "up_comment_content"
+                                ],
+                                "properties": {
+                                    "post_comment_id": {
+                                        "description": "修改的评论ID",
+                                        "type": "integer"
+                                    },
+                                    "up_comment_content": {
+                                        "description": "修改的评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_comment_id": "1",
+                                "up_comment_content": "修改评论内容"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FALSE/失败,评论不存在"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "评论（回复主帖）",
+                "description": "评论（回复主帖）//（回复帖内的评论接口 /api/post/comment/reply）",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_id",
+                                    "comment_content"
+                                ],
+                                "properties": {
+                                    "post_id": {
+                                        "description": "帖子ID",
+                                        "type": "integer"
+                                    },
+                                    "comment_content": {
+                                        "description": "评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_id": "1",
+                                "comment_content": "内容"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FAILED/失败"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "删除评论",
+                "description": "删除评论数据发布者ID 与 登录用户ID一致",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "post_comment_id"
+                                ],
+                                "properties": {
+                                    "post_comment_id": {
+                                        "description": "删除的评论ID",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "post_comment_id": "1"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FALSE/失败,评论不存在"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post/comment/reply": {
+            "post": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "回复评论",
+                "description": "回复评论",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "comment_id",
+                                    "reply_content"
+                                ],
+                                "properties": {
+                                    "comment_id": {
+                                        "description": "评论ID",
+                                        "type": "integer"
+                                    },
+                                    "reply_content": {
+                                        "description": "回复评论内容",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "comment_id": "15",
+                                "reply_content": "回复内容"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "SUCCESS/成功"
+                    },
+                    "400": {
+                        "description": "FAILED/失败"
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
+        "/api/post/comment/index": {
+            "get": {
+                "tags": [
+                    "帖子评论组"
+                ],
+                "summary": "帖子评论列表",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS/成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "description": "页数",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "帖子评论列表数据",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "评论IDs",
+                                                        "type": "integer"
+                                                    },
+                                                    "post_id": {
+                                                        "description": "所属帖子ID",
+                                                        "type": "integer"
+                                                    },
+                                                    "comment_user_id": {
+                                                        "description": "发表评论者ID",
+                                                        "type": "integer"
+                                                    },
+                                                    "comment_content": {
+                                                        "description": "评论内容",
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "description": "评论类型 0回复主贴 1回复评论",
+                                                        "type": "integer"
+                                                    },
+                                                    "reply_comment_id": {
+                                                        "description": "上级评论ID",
+                                                        "type": "integer"
+                                                    },
+                                                    "reply_comment_user_id": {
+                                                        "description": "上级评论用户ID",
+                                                        "type": "integer"
+                                                    },
+                                                    "praise": {
+                                                        "description": "获得点赞数",
+                                                        "type": "integer"
+                                                    },
+                                                    "astrict": {
+                                                        "description": "限制情况 0不限制，1屏蔽，2已删除",
+                                                        "type": "integer"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "发表时间",
+                                                        "type": "date"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "修改时间",
+                                                        "type": "date"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "first_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "from": {
+                                            "description": "",
+                                            "type": "integer"
+                                        },
+                                        "last_page": {
+                                            "description": "",
+                                            "type": "integer"
+                                        },
+                                        "last_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "next_page_url": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "path": {
+                                            "description": "",
+                                            "type": "string"
+                                        },
+                                        "per_page": {
+                                            "description": "",
+                                            "type": "integer"
+                                        },
+                                        "prev_page_url": {
+                                            "description": "",
+                                            "type": "integer"
+                                        },
+                                        "to": {
+                                            "description": "",
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "description": "",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_token": []
+                    }
+                ]
+            }
+        },
         "/projects/{id}": {
             "get": {
                 "tags": [
