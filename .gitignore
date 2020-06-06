@@ -17,4 +17,6 @@ yarn-error.log
 /storage/laravels.json
 /storage/laravels.pid
 _ide_helper.php
-/app/Docs/!demo.php
+# 忽略除了Docs目录下除demo.php外的所有文件
+/app/Docs/
+!/app/Docs/demo.php
