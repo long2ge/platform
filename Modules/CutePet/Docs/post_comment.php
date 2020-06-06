@@ -61,7 +61,7 @@
  */
 
 /**
- * @OA\Put(
+ * @OA\PUT(
  *     path="/api/post/comment",
  *     tags={"帖子评论组"},
  *     summary="修改评论",
