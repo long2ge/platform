@@ -77,7 +77,7 @@ return [
             'prefix'      => env('DB_PREFIX', ''),
             'timezone'    => env('DB_TIMEZONE', '+00:00'),
             'strict'      => env('DB_STRICT_MODE', false),
-            'connection'  => env('DB_CUTE_PET_CONNECTION', 'admin'),
+            'connection'  => env('DB_CUTE_PET_CONNECTION', 'cute_pet'),
         ],
 
     ],
