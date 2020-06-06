@@ -78,7 +78,7 @@
  *     @OA\RequestBody(required=true, @OA\JsonContent(
  *          required={"post_comment_id", "up_comment_content"},
  *          @OA\Property(property="post_comment_id", type="integer", description="修改的评论ID"),
- *          @OA\Property(property="up_comment_content", type="string", description="修改的评论内容")
+ *          @OA\Property(property="up_comment_content", type="string", description="修改的评论内容"),
  *          example={"post_comment_id": "1","up_comment_content": "修改评论内容"}
  *     )),
  *     @OA\Response(
