@@ -4,8 +4,8 @@
 namespace Modules\CutePet\Models;
 
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Models\BaseModel;
 
 class Classify  extends BaseModel
 {

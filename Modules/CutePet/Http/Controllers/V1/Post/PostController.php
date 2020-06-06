@@ -691,44 +691,7 @@ class PostController extends CutePetController
         app(PostService::class)->addPostClassify($userId,$postId,$classifyId);
         return response()->json([],204);
     }
-    /**
-     * 板块列表
-     *
-     * @api               {get} /api/post/classify/all 板块列表
-     * @apiSampleRequest         /api/post/classify/all
-     * @apiVersion 1.0.0
-     * @apiDescription
-     * developed 660099
-     *
-     * @apiGroup          Post
-     * @apiName           PostClassifyAll
-     *
-     * @apiUse            AuthJSONHeader
-     * @param Request $request
-     * @return mixed
-     * @throws \Illuminate\Validation\ValidationException
-     *
-     * @apiSuccessExample  {json} 200 成功请求
-     * [
-     * {
-     *   "id": 1,       //版块ID
-     *   "name": "征婚"  //板块名字
-     * },
-     * {
-     *   "id": 2,
-     *   "name": "新闻"
-     * },
-     * {
-     *   "id": 3,
-     *   "name": "驴友"
-     * }
-     * ]
-     *
-     */
-    public function ClassifyAll()
-    {
-        return response()->json(Classify::query()->select('id','name')->get());
-    }
+
 
     /**用户关注板块
      * @param Request $request

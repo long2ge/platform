@@ -1,12 +1,9 @@
 <?php
 
-namespace Modules\Post\Http\Controllers\V1;
+namespace Modules\CutePet\Http\Controllers\V1\Post;
 
-use App\Services\InvokeService;
 use Illuminate\Http\Request;
 use Modules\CutePet\Http\Controllers\CutePetController;
-use Modules\Post\Models\Comment;
-use Modules\Post\Services\CommentService;
 
 class CommentController extends CutePetController
 {

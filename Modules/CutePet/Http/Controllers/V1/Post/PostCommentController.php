@@ -132,9 +132,14 @@ class PostCommentController extends CutePetController
 
 
     /**
-     *
+     *★评论点赞
      */
+    public function praise(Request $request,$commentId)
+    {
+        app(PostCommentService::class)->praise($request->user(),$commentId);
 
+        return response()->json([], 204);
+    }
 
 
 

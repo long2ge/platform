@@ -3,7 +3,8 @@
 
 namespace Modules\CutePet\Models;
 
-use Modules\Core\Models\BaseModel;
+
+use App\Models\BaseModel;
 
 class PostCommentsPraise extends BaseModel
 {
@@ -30,8 +31,7 @@ class PostCommentsPraise extends BaseModel
      */
     protected $fillable = [
         'user_id',
-        'post_id',
-        'comment_id',
+        'praise_comment_id',
     ];
 
 

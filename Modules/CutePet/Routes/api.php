@@ -71,6 +71,29 @@ $router->middleware('auth:cute_pet_api')->delete('/post/comment', ['uses' => 'V1
 $router->middleware('auth:cute_pet_api')->get('/post/comment', ['uses' => 'V1\Post\PostCommentController@show']);
 
 
+/****************************************************板块**************************************************/
+
+/**
+ * 板块列表
+ */
+$router->get('/classify', ['uses' => 'V1\Post\ClassifyController@indexClassify']);
+
+/**
+ * 增加板块(后台操作)（待移）
+ */
+$router->middleware('auth:cute_pet_api')->post('/classify', ['uses' => 'V1\Post\ClassifyController@indexClassify']);
+
+/****************************************************点赞**************************************************/
+
+/**
+ * 帖子点赞
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/praise/{post_id}', ['uses' => 'V1\Post\PostController@praise']);
+
+/**
+ * （帖子内的）评论点赞
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/comment/praise/{post_id}', ['uses' => 'V1\Post\PostCommentController@praise']);
 
 
 

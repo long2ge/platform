@@ -201,3 +201,32 @@
  *
  * )
  */
+
+/**
+ * @OA\post(
+ *     path="/api/post/comment/praise/{post_id}",
+ *     @OA\Parameter(
+ *       name="comment_id",
+ *       in="path",
+ *       required=true,
+ *       description="",
+ *       @OA\Schema(type="integer")
+ *     ),
+ *     tags={"帖子评论组"},
+ *     summary="评论点赞",
+ *     description="帖子评论点赞取消点赞",
+ *     security={
+ *      {"api_token": {}}
+ *    },
+ *
+ *     @OA\Response(
+ *         response=204,
+ *         description="SUCCESS/成功",
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="/失败",
+ *     ),
+ *
+ * )
+ */

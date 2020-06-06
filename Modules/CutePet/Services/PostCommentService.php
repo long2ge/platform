@@ -10,12 +10,13 @@ namespace Modules\CutePet\Services;
 
 
 use Modules\CutePet\Models\PostComment;
+use Modules\CutePet\Models\PostCommentsPraise;
 use Modules\CutePet\Models\User;
 
 class PostCommentService
 {
     /**
-     * 评论（回复主帖）
+     * ★评论（回复主帖）
      */
     public function recordPostComment(User $user, array $commentData)
     {
@@ -30,7 +31,7 @@ class PostCommentService
     }
 
     /**
-     * 修改帖子评论
+     * ★修改帖子评论
      * @param User $user
      * @param $upData
      */
@@ -46,7 +47,7 @@ class PostCommentService
     }
 
     /**
-     * 回复评论
+     * ★回复评论
      */
     public function commentReply(User $user,$urlData)
     {
@@ -70,7 +71,7 @@ class PostCommentService
     }
 
     /**
-     *删除评论
+     *★删除评论
      */
     public function deleteComment(User $user,$commentId)
     {
@@ -84,7 +85,7 @@ class PostCommentService
     }
 
     /**
-     * 评论详情
+     * ★评论详情
      * @param User $user
      * @param $commentId
      */
@@ -96,7 +97,7 @@ class PostCommentService
     }
 
     /**
-     *帖子评论列表
+     *★帖子评论列表
      */
     public function indexComment(User $user,$postId,$paginate = 10)
     {
@@ -105,5 +106,20 @@ class PostCommentService
         $postCommentS = $postCommentBuilder->where('post_id',$postId)->paginate($paginate);
 
         return $postCommentS;
+    }
+
+    public function praise(User $user,$commentId)
+    {
+
+        if (! PostComment::where('id',$commentId)->exists()){
+        abort(404,'评论不存在');
+        }
+
+        if (PostCommentsPraise::where('user_id',$user->id)->where('praise_comment_id',$commentId)->exists()){
+            PostCommentsPraise::where('user_id',$user->id)->where('praise_comment_id',$commentId)->delete();
+        }else{
+            PostCommentsPraise::create(['user_id'=>$user->id, 'praise_comment_id'=>$commentId,]);
+        }
+
     }
 }

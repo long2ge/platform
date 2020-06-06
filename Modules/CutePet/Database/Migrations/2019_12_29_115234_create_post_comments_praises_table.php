@@ -17,8 +17,7 @@ class CreatePostCommentsPraisesTable extends Migration
         $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table){
             $table->integer('user_id')->comment('用户ID');
-            $table->integer('comment_id')->comment('评论ID');
-            $table->integer('post_id')->comment('帖子ID');
+            $table->integer('praise_comment_id')->comment('点赞的评论ID');
             $table->timestamps();
             $table->softDeletes();
         });
