@@ -10,18 +10,6 @@ $api->get('/cs', [
     'uses' => 'PostController@cs',
 ]);
 
-
-/**
- *回复列表
- */
-$api->get('/reply', ['uses' => 'PostController@indexReply']);
-
-
-/**
- * 关注帖子列表
- */
-$api->get('/enshrine', ['uses' => 'PostController@indexEnshrine']);
-
 /**
  * 推荐帖子
  */
@@ -36,15 +24,28 @@ $api->get('/hot', ['uses' => 'PostController@indexHot']);
  * 精华帖子
  */
 $api->get('/perfect', ['uses' => 'PostController@indexPerfect']);
+/**
+ * 分配帖子到板块
+ */
+$api->post('/classify', ['uses' => 'PostController@addPostClassify']);
+
+///////////////////////////////////////////后台
+/**
+ *回复列表
+ */
+$api->get('/reply', ['uses' => 'PostController@indexReply']);
+
+
+/**
+ * 关注帖子列表
+ */
+$api->get('/enshrine', ['uses' => 'PostController@indexEnshrine']);
 
 /**
  * 视频帖子列表
  */
 $api->get('/video', ['uses' => 'PostController@indexVideo']);
-/**
- * 分配帖子到板块
- */
-$api->post('/classify', ['uses' => 'PostController@addPostClassify']);
+
 /**
  * 板块列表
  */

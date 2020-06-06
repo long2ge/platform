@@ -93,7 +93,7 @@ class PostCommentController extends CutePetController
 
         $commentId = $request->input('comment_id');
 
-        app(PostCommentService::class)->upPostComment($request->user(),$commentId);
+        app(PostCommentService::class)->deleteComment($request->user(),$commentId);
 
         return response()->json([], 204);
     }
@@ -110,13 +110,30 @@ class PostCommentController extends CutePetController
         $commentId = $request->input('comment_id');
 
         $data = app(PostCommentService::class)->showComment($request->user(),$commentId);
+
+        return response()->json($data, 200);
+    }
+
+    /**
+     * 帖子评论列表
+     */
+    public function index(Request $request)
+    {
+        $this->validate($request,[
+            'post_id'=>'required|int',
+        ]);
+
+        $postId = $request->input('post_id');
+
+        $data = app(PostCommentService::class)->indexComment($request->user(),$postId);
+
         return response()->json($data, 200);
     }
 
 
-
-
-
+    /**
+     *
+     */
 
 
 

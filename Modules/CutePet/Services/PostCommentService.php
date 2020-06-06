@@ -39,7 +39,7 @@ class PostCommentService
         if (! PostComment::where('id',$upData['id'])->where('comment_user_id',$user->id)->exists()){
             abort(400,'无操作数据');
         }else{
-            if (PostComment::where('id',$upData['id'])->where('comment_user_id',$user->id)->update($upData) != 1 ){
+            if (! PostComment::where('id',$upData['id'])->where('comment_user_id',$user->id)->update($upData)){
                 abort(400,'修改失败');
             }
         }
@@ -74,18 +74,36 @@ class PostCommentService
      */
     public function deleteComment(User $user,$commentId)
     {
-        if ( ! PostComment::where('id',$commentId)->where('comment_user_id',$user->id)->exists()){
+        if (! PostComment::where('id',$commentId)->where('comment_user_id',$user->id)->exists()){
             abort(400,'无权操作');
         }
 
-        if (!PostComment::where('id',$commentId)->where('comment_user_id',$user->id)->update(['astrict'=>2])){
+        if (! PostComment::where('id',$commentId)->where('comment_user_id',$user->id)->update(['astrict'=>2])){
             abort(400,'删除失败');
         }
     }
 
+    /**
+     * 评论详情
+     * @param User $user
+     * @param $commentId
+     */
     public function showComment(User $user,$commentId)
     {
-        return PostComment::where('id',$commentId)->first()??abort(400,'评论不存在');
+        $postComment = PostComment::where('id',$commentId)->first()??abort(400,'评论不存在');
+
+        return $postComment;
     }
 
+    /**
+     *帖子评论列表
+     */
+    public function indexComment(User $user,$postId,$paginate = 10)
+    {
+        $postCommentBuilder  = PostComment::query();
+
+        $postCommentS = $postCommentBuilder->where('post_id',$postId)->paginate($paginate);
+
+        return $postCommentS;
+    }
 }

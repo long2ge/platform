@@ -106,7 +106,8 @@
  *     tags={"admin-sales-type"},
  *     summary="Store a newly created sales type item in storage",
  *     description="Store a newly created sales type item in storage",
- *     @OA\RequestBody(required=true, @OA\JsonContent(
+ *     @OA\RequestBody(required=true,
+ *          @OA\JsonContent(
  *           required={"sales_name", "handle_fee", "commission", "status", "visible", "keywords", "sales_name_abbr", "charge_full_domestic", "default", "tiers"},
  *           @OA\Property(property="sales_name", type="string", description="sales name"),
  *           @OA\Property(property="handle_fee", type="number", format="float", description="handle fee", example="15.00"),
