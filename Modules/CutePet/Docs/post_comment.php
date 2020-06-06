@@ -203,7 +203,7 @@
  */
 
 /**
- * @OA\post(
+ * @OA\Post(
  *     path="/api/post/comment/praise/{post_id}",
  *     @OA\Parameter(
  *       name="comment_id",
