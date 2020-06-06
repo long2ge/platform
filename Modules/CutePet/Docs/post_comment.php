@@ -120,7 +120,7 @@
  */
 
 /**
- * @OA\get(
+ * @OA\Get(
  *     path="/api/post/comment",
  *     tags={"帖子评论组"},
  *     summary="评论详情",
@@ -136,22 +136,21 @@
  *     @OA\Response(
  *         response=200,
  *         description="SUCCESS/成功",
- *
  *         @OA\MediaType(
- *                 mediaType="application/json",
- *                 @OA\Schema(
- *                              @OA\Property(property="id", type="integer", description="评论ID"),
- *                              @OA\Property(property="post_id", type="integer", description="所属帖子ID"),
- *                              @OA\Property(property="comment_user_id", type="integer", description="发表评论者ID"),
- *                              @OA\Property(property="comment_content", type="string", description="评论内容"),
- *                              @OA\Property(property="type", type="integer", description="评论类型 0回复主贴 1回复评论"),
- *                              @OA\Property(property="reply_comment_id", type="integer", description="上级评论ID"),
- *                              @OA\Property(property="reply_comment_user_id", type="integer", description="上级评论用户ID"),
- *                              @OA\Property(property="praise", type="integer", description="获得点赞数"),
- *                              @OA\Property(property="astrict", type="integer", description="限制情况 0不限制，1屏蔽，2已删除"),
- *                              @OA\Property(property="created_at", type="date", description="发表时间"),
- *                              @OA\Property(property="updated_at", type="date", description="修改时间"),
- *                 ),
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 @OA\Property(property="id", type="integer", description="评论ID"),
+ *                 @OA\Property(property="post_id", type="integer", description="所属帖子ID"),
+ *                 @OA\Property(property="comment_user_id", type="integer", description="发表评论者ID"),
+ *                 @OA\Property(property="comment_content", type="string", description="评论内容"),
+ *                 @OA\Property(property="type", type="integer", description="评论类型 0回复主贴 1回复评论"),
+ *                 @OA\Property(property="reply_comment_id", type="integer", description="上级评论ID"),
+ *                 @OA\Property(property="reply_comment_user_id", type="integer", description="上级评论用户ID"),
+ *                 @OA\Property(property="praise", type="integer", description="获得点赞数"),
+ *                 @OA\Property(property="astrict", type="integer", description="限制情况 0不限制，1屏蔽，2已删除"),
+ *                 @OA\Property(property="created_at", type="date", description="发表时间"),
+ *                 @OA\Property(property="updated_at", type="date", description="修改时间"),
+ *             ),
  *         ),
  *     ),
  *
@@ -162,12 +161,8 @@
  * )
  */
 
-
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- */
-/**
- * @OA\get(
+ * @OA\Get(
  *     path="/api/post/comment/index",
  *     tags={"帖子评论组"},
  *     summary="帖子评论列表",
@@ -175,7 +170,6 @@
  *     security={
  *      {"api_token": {}}
  *    },
- *
  *     @OA\Response(
  *         response=200,
  *         description="SUCCESS/成功",

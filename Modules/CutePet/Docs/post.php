@@ -60,7 +60,7 @@
 
 
 /**
- * @OA\get(
+ * @OA\Get(
  *     path="/api/post/own",
  *     tags={"帖子组"},
  *     summary="用户自发帖子列表",
@@ -68,7 +68,6 @@
  *     security={
  *      {"api_token": {}}
  *    },
- *
  *     @OA\Response(
  *         response=200,
  *         description="SUCCESS/成功",
@@ -101,9 +100,8 @@
  *              @OA\Property(property="to",type="int",description=""),
  *              @OA\Property(property="total",type="int",description=""),
  *             ),
- *        )
+ *        ),
  *     )
- *
  * )
  */
 
