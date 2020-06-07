@@ -11,7 +11,6 @@ namespace Modules\CutePet\Http\Controllers\V1\Post;
 
 use Illuminate\Http\Request;
 use Modules\CutePet\Http\Controllers\CutePetController;
-use Modules\CutePet\Models\User;
 use Modules\CutePet\Services\PostCommentService;
 
 class PostCommentController extends CutePetController
