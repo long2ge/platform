@@ -9,7 +9,7 @@
 <script>
     //CORS通信和同源ajax通信没有区别，重点是子服务器端要设置可以允许跨域的自定义头
     const ajax = new XMLHttpRequest()
-    ajax.open('get','http://dd.test/api/test',true)
+    ajax.open('get','http://swoole.cute.red/api/test',true)
     ajax.onreadystatechange = function(){
         if(ajax.readyState===4){
             if(ajax.status>=200&&ajax.status<300||ajax.status===304){
