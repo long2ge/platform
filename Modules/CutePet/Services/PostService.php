@@ -13,6 +13,7 @@ namespace Modules\CutePet\Services;
 
 use Modules\CutePet\Models\Classify;
 use Modules\CutePet\Models\Post;
+use Modules\CutePet\Models\PostClassify;
 use Modules\CutePet\Models\PostPraise;
 use Modules\CutePet\Models\User;
 
@@ -26,12 +27,18 @@ class PostService
     /**
      * 发布帖子
      */
-    public function addPost($data)
+    public function addPost($data,$classifyId)
     {
+        if (! Classify::where('id',$classifyId)->exists()){
+        abort(404,'板块不存在');
+        }
+
         $post = Post::create($data);
         if(!$post){
          abort(400 ,'发布失败，请检查网络');
         }
+
+        PostClassify::create(['post_id'=>$post->id,'classify_id'=>$classifyId]);
 
     }
 

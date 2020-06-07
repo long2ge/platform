@@ -19,13 +19,14 @@ class PostController extends CutePetController
             'title'=>'required|string',
             'content'=>'required|string',
             'is_video'=>'required|int',
+            'classify_id'=>'required|int',
         ]);
 
-        $data = $request->only(['title','content','is_video']);
-
+        $classifyId = $request->input('classify_id');
+        $data = $request->only(['title','content','is_video',]);
         $data['user_id'] = $request->user()->id;
 
-        app(PostService::class)->addPost($data);
+        app(PostService::class)->addPost($data,$classifyId);
 
         return response()->json([], 204);
     }
