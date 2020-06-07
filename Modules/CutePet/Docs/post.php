@@ -16,11 +16,12 @@
  *      {"api_token": {}}
  *    },
  *     @OA\RequestBody(@OA\JsonContent(
- *              required={"title", "content","is_video"},
+ *              required={"title", "content","is_video","classify_id"},
  *              @OA\Property(property="title", type="string", description="帖子标题"),
  *              @OA\Property(property="content", type="string", description="帖子内容"),
  *              @OA\Property(property="is_video", type="int", description="帖子是否有视频 0没有 1有"),
- *              example={"title": "标题","content": "内容","is_video":"0"}
+ *              @OA\Property(property="classify_id", type="int", description="板块ID"),
+ *              example={"title": "标题","content": "内容","is_video":"0","classify_id":"1"}
  *     )),
  *          @OA\Response(
  *              response=204,

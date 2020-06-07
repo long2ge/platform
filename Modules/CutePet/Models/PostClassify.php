@@ -3,10 +3,12 @@
 
 namespace Modules\CutePet\Models;
 
-use Modules\Core\Models\BaseModel;
 
-class PostClassify   extends BaseModel
+use App\Models\BaseModel;
+
+class PostClassify extends BaseModel
 {
+    public $timestamps = false;
     /**
      * The connection name for the model.
      * 库链接的配置名
