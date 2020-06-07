@@ -74,12 +74,13 @@ $router->middleware('auth:cute_pet_api')->get('/post/comment', ['uses' => 'V1\Po
 /****************************************************板块**************************************************/
 
 /**
- * 板块列表
+ * 板块列表（待移后台操作）
  */
 $router->get('/classify', ['uses' => 'V1\Post\ClassifyController@indexClassify']);
 
+
 /**
- * 增加板块(后台操作)（待移）
+ * 增加板块(后台操作)（待做，增删改,分配）
  */
 $router->middleware('auth:cute_pet_api')->post('/classify', ['uses' => 'V1\Post\ClassifyController@indexClassify']);
 
