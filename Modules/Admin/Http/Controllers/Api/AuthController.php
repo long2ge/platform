@@ -43,9 +43,9 @@ class AuthController extends AdminAppController
             'password' => 'required|string'
         ]);
 
-        $AuthorizationManageServer = new AuthorizationManageServer(new UserRepository());
+        $authorizationManageServer = new AuthorizationManageServer(new UserRepository());
 
-        return $AuthorizationManageServer->login($request, $attributes['username'], $attributes['password']);
+        return $authorizationManageServer->loginByPassword($request, $attributes['username'], $attributes['password']);
     }
 
 }
