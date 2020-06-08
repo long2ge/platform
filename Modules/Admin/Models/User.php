@@ -1,9 +1,14 @@
 <?php
 
-namespace App;
+namespace Modules\Admin\Models;
 
 use App\Models\AbstractUser;
 
+/**
+ * 后台用户
+ * Class User
+ * @package Modules\Admin\Models
+ */
 class User extends AbstractUser
 {
     /**
@@ -12,7 +17,7 @@ class User extends AbstractUser
      *
      * @var string
      */
-    protected $connection = 'user';
+    protected $connection = 'admin';
 
     /**
      * Table Name
@@ -38,9 +43,27 @@ class User extends AbstractUser
         'real_name',
         'birthday',
         'sex', // 1代表男, 0代表女
-        'union_id',
-        'mini_openid',
         'avatar',
+        'role_id',
+        'status',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     /**
@@ -53,6 +76,7 @@ class User extends AbstractUser
      */
     public function findForPassport($username)
     {
-        return (new static())->where('name', $username)->first();
+        return (new static())->where('username', $username)->first();
     }
+
 }

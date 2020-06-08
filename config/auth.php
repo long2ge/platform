@@ -46,6 +46,12 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'admin_api' => [
+            'driver' => 'passport',
+            'provider' => 'admin_users',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +75,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'admin_users' => [
+            'driver' => 'eloquent',
+            'model' => Modules\Admin\Models\User::class,
         ],
 
         // 'users' => [
