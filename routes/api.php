@@ -37,5 +37,10 @@ $router->get('/login/demo', function (ServerRequestInterface $request) {
 
 $router->get('/test', function () {
     return ['data' => 'test'];
-}
-);
+});
+
+
+$router->get('/test/aaa', function () {
+    dd(1);
+    return ['data' => 'testaaa'];
+});
