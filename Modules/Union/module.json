@@ -1,0 +1,13 @@
+{
+    "name": "Union",
+    "alias": "union",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Union\\Providers\\UnionServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

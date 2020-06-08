@@ -1,0 +1,13 @@
+{
+    "name": "PollingAgent",
+    "alias": "pollingagent",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\PollingAgent\\Providers\\PollingAgentServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
