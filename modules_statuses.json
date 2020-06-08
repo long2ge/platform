@@ -1,3 +1,8 @@
 {
-    "Admin": true
+    "Admin": true,
+    "CMS": true,
+    "CutePet": true,
+    "Union": true,
+    "PollingPay": true,
+    "PollingAgent": true
 }
