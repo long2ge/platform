@@ -42,57 +42,20 @@ class AuthorizationManageServer
     }
 
     /**
-     * 密码登陆
+     * 登陆
      * User: long
      * Date: 2020/5/3 5:16 PM
      * Describe:
      * @param ServerRequestInterface $request 请求对象
      * @param string $username 账号
      * @param string $password 密码
+     * @param string $grantType 授予方式
      * @return mixed
      * @throws \Laravel\Passport\Exceptions\OAuthServerException
      */
-    public function loginByPassword(ServerRequestInterface $request, $username, $password)
+    public function login(ServerRequestInterface $request, $username, $password, string $grantType = 'password')
     {
-        $request = $this->requestWithParsedBody($request, $username, $password, 'password');
-
-        /**
-         *         $request = $request->withParsedBody(
-        [
-        'username' => $username,
-        'password' => $password,
-        'grant_type' => 'password',
-        'client_id' => env('PASSPORT_PASSWORD_CLIENT_ID'),
-        'client_secret' => env('PASSPORT_PASSWORD_CLIENT_SECRET'),
-        'scope' => '*',
-        ]
-        );
-         */
-
-        return $this->respondToAccessTokenRequest($request);
-    }
-
-    /**
-     * 刷新toekn
-     * User: long
-     * Date: 2020/5/30 10:48 PM
-     * Describe:
-     * @param ServerRequestInterface $request
-     * @param $refreshToken
-     * @return mixed
-     * @throws \Laravel\Passport\Exceptions\OAuthServerException
-     */
-    public function refreshToken(ServerRequestInterface $request, $refreshToken)
-    {
-        $request = $request->withParsedBody(
-            [
-                'grant_type' => 'refresh_token',
-                'refresh_token' =>  $refreshToken,
-                'client_id' => env('PASSPORT_PASSWORD_CLIENT_ID'),
-                'client_secret' => env('PASSPORT_PASSWORD_CLIENT_SECRET'),
-                'scope' => '*',
-            ]
-        );
+        $request = $this->requestWithParsedBody($request, $username, $password, $grantType);
 
         return $this->respondToAccessTokenRequest($request);
     }

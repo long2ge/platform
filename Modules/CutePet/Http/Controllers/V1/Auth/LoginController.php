@@ -69,7 +69,7 @@ class LoginController extends CutePetController
 
         $AuthorizationManageServer = new AuthorizationManageServer(new CutePetUserRepository());
 
-        return $AuthorizationManageServer->loginByPassword($request,$attributes['username'], $attributes['password']);
+        return $AuthorizationManageServer->login($request,$attributes['username'], $attributes['password']);
 
     }
 
