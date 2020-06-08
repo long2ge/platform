@@ -35,7 +35,7 @@ Route::group([
     | Test route
     |--------------------------------------------------------------------------
     */
-    require __DIR__ . '/Api/Auth.php';
+//    require __DIR__ . '/Api/Auth.php';
 
 });
 
