@@ -28,6 +28,7 @@ class User extends AbstractUser
      * @var array
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
         'password',

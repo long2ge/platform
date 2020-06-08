@@ -1,0 +1,13 @@
+{
+    "name": "PollingPay",
+    "alias": "pollingpay",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\PollingPay\\Providers\\PollingPayServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
