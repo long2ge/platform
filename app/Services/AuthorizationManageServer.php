@@ -54,16 +54,20 @@ class AuthorizationManageServer
      */
     public function loginByPassword(ServerRequestInterface $request, $username, $password)
     {
-        $request = $request->withParsedBody(
-            [
-                'username' => $username,
-                'password' => $password,
-                'grant_type' => 'password',
-                'client_id' => env('PASSPORT_PASSWORD_CLIENT_ID'),
-                'client_secret' => env('PASSPORT_PASSWORD_CLIENT_SECRET'),
-                'scope' => '*',
-            ]
+        $request = $this->requestWithParsedBody($request, $username, $password, 'password');
+
+        /**
+         *         $request = $request->withParsedBody(
+        [
+        'username' => $username,
+        'password' => $password,
+        'grant_type' => 'password',
+        'client_id' => env('PASSPORT_PASSWORD_CLIENT_ID'),
+        'client_secret' => env('PASSPORT_PASSWORD_CLIENT_SECRET'),
+        'scope' => '*',
+        ]
         );
+         */
 
         return $this->respondToAccessTokenRequest($request);
     }
@@ -94,6 +98,32 @@ class AuthorizationManageServer
     }
 
     /**
+     * 解析request body
+     * User: long
+     * Date: 2020/5/3 4:28 PM
+     * Describe:
+     * @param ServerRequestInterface $request 请求对象
+     * @param string $username 账号
+     * @param string $password 密码
+     * @param string $grantType 授予方式
+     * @return ServerRequestInterface
+     */
+    protected function requestWithParsedBody(
+        ServerRequestInterface $request, string $username, string $password, string $grantType
+    ) : ServerRequestInterface {
+        return $request->withParsedBody(
+            [
+                'username' => $username,
+                'password' => $password,
+                'grant_type' => $grantType,
+                'client_id' => env('PASSPORT_PASSWORD_CLIENT_ID'),
+                'client_secret' => env('PASSPORT_PASSWORD_CLIENT_SECRET'),
+                'scope' => '*',
+            ]
+        );
+    }
+
+    /**
      * 响应 access token
      * User: long
      * Date: 2020/5/3 4:28 PM
@@ -116,8 +146,7 @@ class AuthorizationManageServer
      * User: long
      * Date: 2020/5/3 5:12 PM
      * Describe:
-     * @return \Illuminate\Contracts\Foundation\Application|AuthorizationServer|mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return \Laravel\Lumen\Application|AuthorizationServer|mixed
      */
     protected function getAuthorizationServer()
     {
@@ -150,7 +179,6 @@ class AuthorizationManageServer
      * Date: 2019/12/8 8:51 PM
      * Describe:
      * @return RefreshTokenRepository|mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function getRefreshTokenRepository()
     {
