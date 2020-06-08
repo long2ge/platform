@@ -131,3 +131,32 @@
  *
  * )
  */
+
+/**
+ * @OA\Post(
+ *     path="/api/post/enshrine/{post_id}",
+ *     @OA\Parameter(
+ *       name="post_id",
+ *       in="path",
+ *       required=true,
+ *       description="10",
+ *       @OA\Schema(type="integer")
+ *     ),
+ *     tags={"帖子组"},
+ *     summary="帖子收藏",
+ *     description="收藏取消收藏",
+ *     security={
+ *      {"api_token": {}}
+ *    },
+ *
+ *     @OA\Response(
+ *         response=204,
+ *         description="SUCCESS/成功",
+ *     ),
+ *     @OA\Response(
+ *         response=204,
+ *         description="SUCCESS/成功",
+ *     ),
+ *
+ * )
+ */

@@ -14,6 +14,7 @@ namespace Modules\CutePet\Services;
 use Modules\CutePet\Models\Classify;
 use Modules\CutePet\Models\Post;
 use Modules\CutePet\Models\PostClassify;
+use Modules\CutePet\Models\PostEnshrine;
 use Modules\CutePet\Models\PostPraise;
 use Modules\CutePet\Models\User;
 
@@ -127,124 +128,124 @@ class PostService
      * @param $userId //用户ID
      * @return mixed
      */
-    public function indexReply($userId)
-    {
-        return PostComment::where('post_user_id',$userId)
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
-
-    }
+//    public function indexReply($userId)
+//    {
+//        return PostComment::where('post_user_id',$userId)
+//            ->orderBy('created_at', 'desc')
+//            ->paginate(5);
+//
+//    }
 
     /**
      * 帖子详情
      */
-    public function showPostId($postId,$userId)
-    {
-        $postQuery = Post::query();
-        $post = $postQuery->with
-            ([
-            'publishUser'=>function($query){
-            $query->select('id','user_name');
-            }])
-            ->withCount(['postPraise','comment','enshrine'])
-            ->where('id',$postId)
-            ->first();
-
-        if ($userId != null){
-            $post->visitorPraise = intval(PostPraise::where('post_id',$postId)->where('user_id',$userId)->exists());
-            $post->visitorEnshrine = intval(PostEnshrine::where('post_id',$postId)->where('user_id',$userId)->exists());
-            $this->addRecentPost($userId,$postId);
-        }else{
-            $post->visitorPraise = 2;
-            $post->visitorEnshrine = 2;
-
-        }
-
-        return $post;
-    }
+//    public function showPostId($postId,$userId)
+//    {
+//        $postQuery = Post::query();
+//        $post = $postQuery->with
+//            ([
+//            'publishUser'=>function($query){
+//            $query->select('id','user_name');
+//            }])
+//            ->withCount(['postPraise','comment','enshrine'])
+//            ->where('id',$postId)
+//            ->first();
+//
+//        if ($userId != null){
+//            $post->visitorPraise = intval(PostPraise::where('post_id',$postId)->where('user_id',$userId)->exists());
+//            $post->visitorEnshrine = intval(PostEnshrine::where('post_id',$postId)->where('user_id',$userId)->exists());
+//            $this->addRecentPost($userId,$postId);
+//        }else{
+//            $post->visitorPraise = 2;
+//            $post->visitorEnshrine = 2;
+//
+//        }
+//
+//        return $post;
+//    }
 
     /**收藏列表
      * @param $userId
      * @return mixed
      */
-    public function indexEnshrine($userId)
-    {
-        $postEnshrines = PostEnshrine::where('user_id',$userId)
-            ->withCount(['postPraise','comment','enshrine'])
-            ->with('post')
-            ->orderBy('created_at','desc')
-            ->select('post_id')
-            ->paginate(5);
-
-        foreach ($postEnshrines as $postEnshrine){
-            $postEnshrine->user_id = $postEnshrine->post->user_id??null;
-            $postEnshrine->title = $postEnshrine->post->title??null;
-            $postEnshrine->content = $postEnshrine->post->content??null;
-            $postEnshrine->view = $postEnshrine->post->view??null;
-            $postEnshrine->hot = $postEnshrine->post->hot??null;
-            $postEnshrine->perfect = $postEnshrine->post->perfect??null;
-            $postEnshrine->top = $postEnshrine->post->top??null;
-            $postEnshrine->shield = $postEnshrine->post->shield??null;
-            $postEnshrine->is_video = $postEnshrine->post->is_video??null;
-            $postEnshrine->created_at = $postEnshrine->post->created_at??null;
-            unset($postEnshrine->post);
-        }
-
-
-
-        return $postEnshrines;
-    }
+//    public function indexEnshrine($userId)
+//    {
+//        $postEnshrines = PostEnshrine::where('user_id',$userId)
+//            ->withCount(['postPraise','comment','enshrine'])
+//            ->with('post')
+//            ->orderBy('created_at','desc')
+//            ->select('post_id')
+//            ->paginate(5);
+//
+//        foreach ($postEnshrines as $postEnshrine){
+//            $postEnshrine->user_id = $postEnshrine->post->user_id??null;
+//            $postEnshrine->title = $postEnshrine->post->title??null;
+//            $postEnshrine->content = $postEnshrine->post->content??null;
+//            $postEnshrine->view = $postEnshrine->post->view??null;
+//            $postEnshrine->hot = $postEnshrine->post->hot??null;
+//            $postEnshrine->perfect = $postEnshrine->post->perfect??null;
+//            $postEnshrine->top = $postEnshrine->post->top??null;
+//            $postEnshrine->shield = $postEnshrine->post->shield??null;
+//            $postEnshrine->is_video = $postEnshrine->post->is_video??null;
+//            $postEnshrine->created_at = $postEnshrine->post->created_at??null;
+//            unset($postEnshrine->post);
+//        }
+//
+//
+//
+//        return $postEnshrines;
+//    }
 
 /**
  * 评论列表
  */
 
-    public function indexComment($postId,$userId,$type)
-    {
-
-        $commentQuery = PostComment::query()
-            ->with(['user'=>function($query){
-                $query->select('id','user_name','sex');
-            }])
-            ->withCount(['commentPraise'])
-            ->where('post_id',$postId);
-
-        if ($type == 'created_at_asc'){
-            $commentQuery = $commentQuery->orderBy('created_at','asc');
-        }
-
-        if ($type == 'created_at_desc'){
-            $commentQuery = $commentQuery->orderBy('created_at','desc');
-        }
-
-        if ($type == 'praise_desc'){
-            $commentQuery = $commentQuery->orderBy('comment_praise_count','desc')
-            ->orderBy('created_at','desc');
-        }
-
-        $comments = $commentQuery->paginate(5);
-
-        if ($userId != null){
-            $commentIds = $comments->pluck('id');
-            $commentPraise = PostCommentsPraise::whereIn('comment_id',$commentIds)
-                ->where('user_id',$userId)
-                ->select('comment_id')
-                ->get()
-                ->pluck('comment_id')
-                ->toArray();
-
-            foreach ($comments as $comment){
-                $comment->visitPraise = in_array($comment->id,$commentPraise)?1:0;
-            }
-
-        }else{
-            foreach ($comments as $comment){
-                $comment->visitPraise = 3;
-            }
-        }
-
-        return $comments;
-    }
+//    public function indexComment($postId,$userId,$type)
+//    {
+//
+//        $commentQuery = PostComment::query()
+//            ->with(['user'=>function($query){
+//                $query->select('id','user_name','sex');
+//            }])
+//            ->withCount(['commentPraise'])
+//            ->where('post_id',$postId);
+//
+//        if ($type == 'created_at_asc'){
+//            $commentQuery = $commentQuery->orderBy('created_at','asc');
+//        }
+//
+//        if ($type == 'created_at_desc'){
+//            $commentQuery = $commentQuery->orderBy('created_at','desc');
+//        }
+//
+//        if ($type == 'praise_desc'){
+//            $commentQuery = $commentQuery->orderBy('comment_praise_count','desc')
+//            ->orderBy('created_at','desc');
+//        }
+//
+//        $comments = $commentQuery->paginate(5);
+//
+//        if ($userId != null){
+//            $commentIds = $comments->pluck('id');
+//            $commentPraise = PostCommentsPraise::whereIn('comment_id',$commentIds)
+//                ->where('user_id',$userId)
+//                ->select('comment_id')
+//                ->get()
+//                ->pluck('comment_id')
+//                ->toArray();
+//
+//            foreach ($comments as $comment){
+//                $comment->visitPraise = in_array($comment->id,$commentPraise)?1:0;
+//            }
+//
+//        }else{
+//            foreach ($comments as $comment){
+//                $comment->visitPraise = 3;
+//            }
+//        }
+//
+//        return $comments;
+//    }
 
 
     /**
@@ -330,7 +331,7 @@ class PostService
     }
 
     /**
-     * 帖子点赞
+     * 帖子点赞99
      */
     public function praise(User $user,$postId)
     {
@@ -342,6 +343,25 @@ class PostService
             PostPraise::where('user_id',$user->id)->where('post_id',$postId)->delete();
         }else{
             PostPraise::create(['user_id'=>$user->id, 'post_id'=>$postId,]);
+        }
+
+    }
+    /**
+     * 收藏帖子 ,取消收藏帖子
+     */
+    public function enshrine(User $user,$postId)
+    {
+        if (! Post::where('id',$postId)->exists()){
+            abort(404,'帖子不存在');
+        }
+
+        if (PostEnshrine::where('user_id',$user->id)->where('post_id',$postId)->exists()){
+            PostEnshrine::where('user_id',$user->id)->where('post_id',$postId)->delete();
+        }else{
+            PostEnshrine::create([
+               'user_id'=>$user->id,
+               'post_id'=>$postId,
+            ]);
         }
 
     }

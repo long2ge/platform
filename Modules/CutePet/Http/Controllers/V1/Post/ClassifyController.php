@@ -9,6 +9,7 @@
 namespace Modules\CutePet\Http\Controllers\V1\Post;
 
 
+use Illuminate\Http\Request;
 use Modules\CutePet\Http\Controllers\CutePetController;
 use Modules\CutePet\Services\ClassufyService;
 
@@ -21,5 +22,6 @@ class ClassifyController extends CutePetController
     {
         return response()->json(['data'=>app(ClassufyService::class)->indexClassify()]);
     }
+
 
 }

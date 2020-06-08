@@ -3,8 +3,9 @@
 
 namespace Modules\CutePet\Models;
 
-use Modules\Core\Models\BaseModel;
-use Modules\Post\Post;
+
+
+use App\Models\BaseModel;
 
 class PostEnshrine extends BaseModel
 {

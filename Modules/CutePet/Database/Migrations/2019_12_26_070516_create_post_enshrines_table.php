@@ -19,7 +19,6 @@ class CreatePostEnshrinesTable extends Migration
             $table->integer('user_id')->comment('用户ID');
             $table->integer('post_id')->comment('帖子ID');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

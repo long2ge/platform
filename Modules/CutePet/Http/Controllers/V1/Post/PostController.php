@@ -151,7 +151,15 @@ class PostController extends CutePetController
         return response()->json([], 204);
     }
 
+    /**
+     * 用户收藏帖子
+     */
+    public function postEnshrine(Request $request,int $postId)
+    {
+        $user = $request->user();
 
+        app(PostService::class)->enshrine($user,$postId);
+    }
 
 
 }
