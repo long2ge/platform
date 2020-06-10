@@ -154,8 +154,8 @@
  *         description="SUCCESS/成功",
  *     ),
  *     @OA\Response(
- *         response=204,
- *         description="SUCCESS/成功",
+ *         response=400,
+ *         description="FALSE/失败",
  *     ),
  *
  * )
