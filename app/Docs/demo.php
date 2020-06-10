@@ -5,7 +5,7 @@
  * @OA\Get(
  *      path="/projects/{id}",
  *      operationId="getProjectById",
- *      tags={"project"},
+ *      tags={"测试标签"},
  *      summary="Get project information",
  *      description="Returns project data",
  *      @OA\Parameter(
@@ -43,6 +43,7 @@
 /**
  * @OA\Get(
  *     path="/hello/{id}",
+ *     tags={"测试标签"},
  *     @OA\Parameter(
  *       name="id",
  *       in="path",
@@ -79,7 +80,7 @@
 /**
  * @OA\Post(
  *     path="/hello/file-upload",
- *     tags={"admin-member"},
+ *     tags={"测试标签"},
  *     summary="Upload one user document",
  *     description="Upload one user document",
  *     @OA\RequestBody(
@@ -103,7 +104,7 @@
 /**
  * @OA\Post(
  *     path="/hello/xx-yy",
- *     tags={"admin-sales-type"},
+ *     tags={"测试标签"},
  *     summary="Store a newly created sales type item in storage",
  *     description="Store a newly created sales type item in storage",
  *     @OA\RequestBody(required=true,
@@ -132,7 +133,7 @@
 /**
  * @OA\Patch(
  *     path="/admin/member/{id}",
- *     tags={"admin-member"},
+ *     tags={"测试标签"},
  *     summary="get member info",
  *     description="get member info",
  *     @OA\RequestBody(required=true, @OA\JsonContent(
@@ -153,7 +154,7 @@
 /**
  * @OA\Delete(
  *     path="/hello/delete/{id}",
- *     tags={"admin-member"},
+ *     tags={"测试标签"},
  *     summary="Remove the specified resource from storage",
  *     description="Remove the specified resource from storage",
  *     @OA\Parameter(
