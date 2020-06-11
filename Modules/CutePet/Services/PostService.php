@@ -113,16 +113,7 @@ class PostService
         return $posts;
     }
 
-//    const RANK = [
-//        'asc'=>'asc',//小到大
-//        'desc'=>'desc',//大到小
-//    ];
-//
-//    const SELECT = [
-//        'created_at'=>'created_at',
-//        ''=>'',
-//        ''=>'',
-//    ];
+
 
         /**回复列表
      * @param $userId //用户ID
@@ -168,33 +159,25 @@ class PostService
      * @param $userId
      * @return mixed
      */
-//    public function indexEnshrine($userId)
-//    {
-//        $postEnshrines = PostEnshrine::where('user_id',$userId)
-//            ->withCount(['postPraise','comment','enshrine'])
-//            ->with('post')
-//            ->orderBy('created_at','desc')
-//            ->select('post_id')
-//            ->paginate(5);
-//
-//        foreach ($postEnshrines as $postEnshrine){
-//            $postEnshrine->user_id = $postEnshrine->post->user_id??null;
-//            $postEnshrine->title = $postEnshrine->post->title??null;
-//            $postEnshrine->content = $postEnshrine->post->content??null;
-//            $postEnshrine->view = $postEnshrine->post->view??null;
-//            $postEnshrine->hot = $postEnshrine->post->hot??null;
-//            $postEnshrine->perfect = $postEnshrine->post->perfect??null;
-//            $postEnshrine->top = $postEnshrine->post->top??null;
-//            $postEnshrine->shield = $postEnshrine->post->shield??null;
-//            $postEnshrine->is_video = $postEnshrine->post->is_video??null;
-//            $postEnshrine->created_at = $postEnshrine->post->created_at??null;
-//            unset($postEnshrine->post);
-//        }
-//
-//
-//
-//        return $postEnshrines;
-//    }
+    public function indexEnshrine($user,$paginate = 1)
+    {
+        $postEnshrines = PostEnshrine::where('user_id',$user->id)
+            ->orderBy('created_at','desc')
+            ->paginate($paginate);
+        $posts = Post::
+            with('publishUser')
+            ->withCount('postPraise')
+            ->whereIn('id',$postEnshrines->pluck('post_id'))
+            ->get()
+            ->keyBy('id')
+            ->toArray();
+
+        foreach ($postEnshrines as $postEnshrine){
+            $postEnshrine->post = $posts[$postEnshrine->post_id] ?? [];
+        }
+
+        return $postEnshrines;
+    }
 
 /**
  * 评论列表
@@ -363,7 +346,6 @@ class PostService
                'post_id'=>$postId,
             ]);
         }
-
     }
 
 

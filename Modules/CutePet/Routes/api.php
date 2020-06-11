@@ -71,7 +71,15 @@ $router->middleware('auth:cute_pet_api')->delete('/post/comment', ['uses' => 'V1
 $router->middleware('auth:cute_pet_api')->get('/post/comment', ['uses' => 'V1\Post\PostCommentController@show']);
 /****************************************************收藏**************************************************/
 
-$router->middleware('auth:cute_pet_api')->post('/post/enshrine/{post_id}   ', ['uses' => 'V1\Post\PostController@postEnshrine']);
+/**
+ * 收藏帖子
+ */
+$router->middleware('auth:cute_pet_api')->post('/post/enshrine/{post_id}', ['uses' => 'V1\Post\PostController@postEnshrine']);
+
+/**
+ * 收藏列表
+ */
+$router->middleware('auth:cute_pet_api')->get('/post/enshrine', ['uses' => 'V1\Post\PostController@indexEnshrine']);
 /****************************************************板块**************************************************/
 
 /**
@@ -109,3 +117,4 @@ $router->middleware('auth:cute_pet_api')
 //Route::middleware('auth:api')->get('/cutepet', function (Request $request) {
 //    return $request->user();
 //});
+

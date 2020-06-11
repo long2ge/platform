@@ -10,7 +10,6 @@ namespace Modules\CutePet\Services;
 
 
 use Modules\CutePet\Models\Classify;
-use Modules\CutePet\Models\User;
 
 class ClassufyService
 {
@@ -22,13 +21,7 @@ class ClassufyService
         return Classify::all();
     }
 
-    /**
-     * 分配帖子板块关联
-     */
-    public function allocationPost(User $user,$postId,$classifyId)
-    {
 
-    }
 
 
 }
