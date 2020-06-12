@@ -58,22 +58,19 @@ class PostController extends CutePetController
     }
 
     /**
-     * 帖子列表88
+     * 帖子列表（根据板块）
      *
      */
     public function index(Request $request)
     {
-//        $this->validate($request, [
-//            'select' => 'nullable|string',
-//            'rank' => 'nullable|string',
-//            'paginate' => 'nullable|int',
-//        ]);
-        $userId = $request->user()->id;
-
-        $select = 'created_at';
-        $rank = 'desc';
+        $this->validate($request, [
+            'paginate' => 'nullable|int',
+            'classify_id' => 'required|int',
+        ]);
+        $userId = $request->user()->id??0;
         $paginate = $request->input('paginate') ?? 10;
-        $posts = app(PostService::class)->index($select,$rank,$userId,$paginate);
+        $classifyId = $request->input('classify_id');
+        $posts = app(PostService::class)->index($classifyId,$userId,$paginate);
 
         return response()->json($posts);
     }
@@ -141,7 +138,7 @@ class PostController extends CutePetController
 
 
     /**
-     *★帖子点赞
+     *帖子点赞
      *
      */
     public function praise(Request $request,$postId)

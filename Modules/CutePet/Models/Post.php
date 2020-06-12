@@ -68,9 +68,9 @@ class Post extends BaseModel
         return $this->hasMany(PostEnshrine::class, 'post', 'id');
     }
 
-    public function comments()
+    public function postComment()
     {
-        return $this->hasMany(Comment::class,'post_id','id');
+        return $this->hasMany(PostComment::class,'post_id','id');
     }
 
 }

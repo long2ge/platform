@@ -75,22 +75,31 @@ class PostService
     /**
      *帖子列表
      */
-    public function index($select,$rank,$userId,$paginate)
+    public function index($classifyId,$userId,$paginate)
     {
+        if (! Classify::where('id',$classifyId)->exists()){
+            abort(404,'板块不存在');
+        }
+        $classifyPostIds = PostClassify::where('classify_id',$classifyId)->select('post_id')->get()->pluck('post_id');
+
         $postQuery = Post::query();
-        $posts = $postQuery->with([
+        $posts = $postQuery
+            ->whereIn('id',$classifyPostIds)
+            ->orderBy('top','desc')
+            ->orderBy('created_at','desc')
+
+            ->with([
             'publishUser'=>function($query){
             $query->select('id','user_name');
         }
         ])
-            ->withCount(['postPraise','comment'
-            //    ,'comment','enshrine'
+            ->withCount([
+                'postPraise',
+                'PostComment',
             ])
-            ->orderBy($select,$rank)
             ->paginate($paginate);
-        dd($posts->toArray());
-        $postIds = $posts->pluck('id');
 
+        $postIds = $posts->pluck('id');
 
         $postPraises = PostPraise::where('user_id',$userId)
             ->whereIn('post_id',$postIds)
@@ -109,7 +118,9 @@ class PostService
         foreach ($posts as $post){
             $post->visitorPraise = in_array($post->id,$postPraises)?1:0;
             $post->visitorEnshrine = in_array($post->id,$postEnshrine)?1:0;
+            $post->visitorUserId = $userId;
         }
+
         return $posts;
     }
 

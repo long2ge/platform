@@ -35,6 +35,10 @@ class PostEnshrine extends BaseModel
         'post_id',
     ];
 
+    /**
+     * 关联帖子
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function post()
     {
         return $this->hasOne(Post::class,'id','post_id');
