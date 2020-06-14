@@ -12,6 +12,7 @@ namespace Modules\CutePet\Services;
 
 
 use Modules\CutePet\Models\Classify;
+use Modules\CutePet\Models\CommonalityPostRecommend;
 use Modules\CutePet\Models\Post;
 use Modules\CutePet\Models\PostClassify;
 use Modules\CutePet\Models\PostEnshrine;
@@ -175,19 +176,54 @@ class PostService
         $postEnshrines = PostEnshrine::where('user_id',$user->id)
             ->orderBy('created_at','desc')
             ->paginate($paginate);
-        $posts = Post::
-            with('publishUser')
-            ->withCount('postPraise')
-            ->whereIn('id',$postEnshrines->pluck('post_id'))
-            ->get()
-            ->keyBy('id')
-            ->toArray();
+
+        $posts = $this->getIndexPost($postEnshrines->pluck('post_id'),$user->id)->keyBy('id');
 
         foreach ($postEnshrines as $postEnshrine){
-            $postEnshrine->post = $posts[$postEnshrine->post_id] ?? [];
+            $postEnshrine->post = $posts->get($postEnshrine->post_id) ?? [];
         }
 
         return $postEnshrines;
+    }
+
+    /**
+     * 获取帖子列表数据
+     */
+    public function getIndexPost($postIds,$visitorId = null){
+        //获取帖子
+        $posts = Post::
+            with(['publishUser'=>function($query){
+                $query->select('id','user_name');       //关联用户信息
+        }])
+            ->withCount('postPraise')         //关联点赞数量
+            ->whereIn('id',$postIds)
+            ->get();
+
+        if (null!= $visitorId){
+            $postEnshrines = PostEnshrine::where('user_id',$visitorId)
+                ->whereIn('post_id',$postIds)
+                ->select('post_id')
+                ->get()
+                ->keyBy('post_id');
+
+            $postPraises = PostPraise::where('user_id',$visitorId)
+                ->whereIn('post_id',$postIds)
+                ->select('post_id')
+                ->get()
+                ->keyBy('post_id');
+
+        }else{
+            $postEnshrines = collect();
+            $postPraises = collect();
+        }
+
+        foreach ($posts as $post){
+            $post->visitor_user_id = $visitorId;
+            $post->visitor_is_enshrine = $postEnshrines->get($post->id) ? 0: 1;
+            $post->visitor_is_praise = $postPraises->get($post->id) ? 0:1;
+        }
+
+        return $posts;
     }
 
 /**
@@ -358,6 +394,69 @@ class PostService
             ]);
         }
     }
+
+    /**
+     * 推荐列表(所有板块筛选)
+     */
+    public function indexRecommend($userId = 0)
+    {
+
+        $commonalitys = CommonalityPostRecommend::query()->orderBy('id','desc')->paginate(10);
+        dd($commonalitys);
+        $postJointData = $this->postJointData($commonalitys->pulck('post_id'),$userId)->keyBy('id');
+
+        foreach ($commonalitys as $commonality){
+            $commonality->postJointData = $postJointData->get($commonality->post_id);
+        }
+    }
+
+    /**
+     * 帖子列表联合数据查询
+     * @param array $postIds 帖子IDS
+     * @param int $visitorUserId 浏览者用户ID
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function postJointData(array $postIds,int $visitorUserId)
+    {
+        $postQuery = Post::query();
+        $posts = $postQuery
+            ->whereIn('id',$postIds)
+            ->with([
+                'publishUser'=>function($query){
+                    $query->select('id','user_name');
+                }
+            ])
+            ->withCount([
+                'postPraise',
+                'PostComment',
+            ])
+            ->get();
+
+        $postIds = $posts->pluck('id');
+
+        $postPraises = PostPraise::where('user_id',$visitorUserId)
+                ->whereIn('post_id',$postIds)
+                ->select('post_id','user_id')
+                ->get()
+                ->pluck('post_id')
+                ->toArray();
+
+        $postEnshrine = PostEnshrine::where('user_id',$visitorUserId)
+            ->whereIn('post_id',$postIds)
+            ->select('post_id','user_id')
+            ->get()
+            ->pluck('post_id')
+            ->toArray();
+
+        foreach ($posts as $post){
+            $post->visitorPraise = in_array($post->id,$postPraises)?1:0;
+            $post->visitorEnshrine = in_array($post->id,$postEnshrine)?1:0;
+            $post->visitorUserId = $visitorUserId;
+        }
+
+        return $posts;
+    }
+
 
 
 

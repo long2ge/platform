@@ -38,9 +38,17 @@ $router->middleware('auth:cute_pet_api')->delete('/post', ['uses' => 'V1\Post\Po
 $router->middleware('auth:cute_pet_api')->get('/post/own', ['uses' => 'V1\Post\PostController@indexOwn']);
 
 /**
- * 贴子列表
+ * 贴子列表(根据板块)
  */
 $router->middleware('auth:cute_pet_api')->get('/post/index', ['uses' => 'V1\Post\PostController@index']);
+/**
+ * 贴子列表(全板块推荐)
+ */
+$router->middleware('auth:cute_pet_api')->get('/post/index/recommend', ['uses' => 'V1\Post\PostController@indexRecommend']);
+/**
+ * 图片上传
+ */
+$router->post('/image/upload', ['uses' => 'V1\imageUpload\imageUploadController@imageUpload']);
 
 /****************************************************评论**************************************************/
 

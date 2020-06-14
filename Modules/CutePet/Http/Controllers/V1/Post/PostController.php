@@ -10,7 +10,7 @@ use Modules\CutePet\Services\PostService;
 class PostController extends CutePetController
 {
     /**
-     * 发布帖子99
+     * 发布帖子
      */
     public function addPost(Request $request)
     {
@@ -32,7 +32,7 @@ class PostController extends CutePetController
     }
 
     /**
-     * 删除帖子99
+     * 删除帖子
      */
     public function deletePost(Request $request)
     {
@@ -45,7 +45,7 @@ class PostController extends CutePetController
     }
 
     /**
-     * 自发帖子列表88
+     * 自发帖子列表
      */
     public function indexOwn(Request $request)
     {
@@ -100,15 +100,6 @@ class PostController extends CutePetController
     }
 
     /**
-     * 收藏列表
-     */
-
-    /**
-     * 推荐列表
-     *
-     */
-
-    /**
      * 热门帖子列表
      */
 
@@ -159,14 +150,21 @@ class PostController extends CutePetController
     }
 
     /**
-     * 收藏列表
+     * 收藏列表1
      */
     public function indexEnshrine(Request $request)
     {
-
-        $user = $request->user();
+        $user = $request->user()??null;
 
         return response()->json(app(PostService::class)->indexEnshrine($user));
+    }
+
+    /**
+     * 推荐列表0
+     */
+    public function indexRecommend()
+    {
+        return response()->json(app(PostService::class)->indexRecommend());
     }
 
 

@@ -46,7 +46,8 @@ class File
 
     }
 
-    /**验证视频格式
+    /**
+     * 验证视频格式
      * @param $pictureSuffix
      */
     public static function validateVideoFormat($pictureSuffix)

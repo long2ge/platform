@@ -39,11 +39,6 @@ class TestCommand extends Command
 
     public function handle()
     {
-
-        $url = 'http://baidu.com/index.php?sss';
-        dd(pathinfo($url));
-
-        dd(22222);
         $path = 'test/file';
 
         $bbb = Storage::putFile($path, public_path('111.png'));
