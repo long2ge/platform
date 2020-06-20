@@ -74,13 +74,24 @@ class PostService
     }
 
     /**
-     *帖子列表
+     *帖子列表（板块内）
      */
     public function index($classifyId,$userId,$paginate)
     {
         if (! Classify::where('id',$classifyId)->exists()){
             abort(404,'板块不存在');
         }
+        $classifyPostIds = PostClassify::where('classify_id',$classifyId)->get()->pluck('post_id');
+
+
+
+
+
+
+
+
+
+
         $classifyPostIds = PostClassify::where('classify_id',$classifyId)->select('post_id')->get()->pluck('post_id');
 
         $postQuery = Post::query();

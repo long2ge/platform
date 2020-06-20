@@ -34,3 +34,26 @@
  *     )
  * )
  */
+
+/**
+ * @OA\Post(
+ *     path="/api/user/login",
+ *     tags={"用户组"},
+ *     summary="用户注册",
+ *     description="",
+ *     @OA\RequestBody(@OA\JsonContent(
+ *              required={"phone", "password"},
+ *              @OA\Property(property="phone", type="string", description="注册账户"),
+ *              @OA\Property(property="password", type="string", description="注册密码"),
+ *     example={"username": "测试1234","password": "123456"}
+ *     )),
+ *     @OA\Response(
+ *         response=204,
+ *         description="SUCCESS/成功",
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="账号已存在",
+ *     ),
+ * )
+ */

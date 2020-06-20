@@ -32,10 +32,11 @@ class RegisterLogic
      * Describe:
      * @return string
      */
-    public static function getRandomCipher() : string
+    public static function getRandomCipher($password = null) : string
     {
-        $password = mt_rand(100000, 999999);
-
+        if ($password = null){
+            $password = mt_rand(100000, 999999);
+        }
         return Hash::make($password);
     }
 
@@ -107,5 +108,24 @@ class RegisterLogic
         }
 
         return $user;
+    }
+
+    /**
+     * 简单注册接口
+     */
+    public static function writeData($phone,$password)
+    {
+
+        $passwordHash = self::getRandomCipher($password);
+
+        if (User::where('phone_number',$phone)->exists()){
+            abort(404,'账号已经存在');
+        }
+
+        User::create([
+            'phone_number'=>$phone,
+            'password'=>$passwordHash,
+            ]);
+
     }
 }

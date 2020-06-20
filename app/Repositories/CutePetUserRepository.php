@@ -17,4 +17,6 @@ class CutePetUserRepository extends AbstractUserRepository
 
         return config('auth.providers.'.$provider.'.model');
     }
+
+
 }
