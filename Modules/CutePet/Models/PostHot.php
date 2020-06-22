@@ -1,15 +1,18 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Long
+ * Date: 2020/6/22
+ * Time: 19:41
+ */
 
 namespace Modules\CutePet\Models;
 
 
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostClassify extends BaseModel
+class PostHot extends BaseModel
 {
-    use SoftDeletes;
     /**
      * The connection name for the model.
      * 库链接的配置名
@@ -24,7 +27,7 @@ class PostClassify extends BaseModel
      *
      * @var string
      */
-    protected $table = 'post_classify';
+    protected $table = 'post_hot';
 
     /**
      * The attributes that are mass assignable.
@@ -33,8 +36,5 @@ class PostClassify extends BaseModel
      */
     protected $fillable = [
         'post_id',
-        'classify_id',
-        'is_top',
     ];
-
 }

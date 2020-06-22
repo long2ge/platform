@@ -50,15 +50,15 @@ class PostController extends CutePetController
     public function indexOwn(Request $request)
     {
 
-        $userId = $visitor = $request->user()->id;
+        $userId  = $request->user()->id;
 
-        $posts = app(PostService::class)->showUserId($userId,$visitor);
+        $posts = app(PostService::class)->showUserIdPost($userId);
 
         return response()->json($posts);
     }
 
     /**
-     * 帖子列表（根据板块）
+     * 板块帖子列表（根据板块）
      *
      */
     public function index(Request $request)
@@ -150,7 +150,7 @@ class PostController extends CutePetController
     }
 
     /**
-     * 收藏列表1
+     * 收藏列表
      */
     public function indexEnshrine(Request $request)
     {
@@ -160,7 +160,7 @@ class PostController extends CutePetController
     }
 
     /**
-     * 推荐列表0
+     * 推荐列表
      */
     public function indexRecommend()
     {

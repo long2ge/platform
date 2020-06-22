@@ -76,19 +76,40 @@
  *             mediaType="application/json",
  *             @OA\Schema(
  *              @OA\Property(property="current_page", type="int", description="页数"),
- *              @OA\Property(property="data", type="object", description="帖子列表数据",
- *                  @OA\Property(property="id", type="int", description="id"),
- *                  @OA\Property(property="user_id", type="int", description="用户id"),
- *                  @OA\Property(property="title", type="string", description="标题"),
- *                  @OA\Property(property="content", type="string", description="内容"),
- *                  @OA\Property(property="view", type="int", description="浏览量"),
- *                  @OA\Property(property="hot", type="int", description="是否热帖 0否 1是"),
- *                  @OA\Property(property="perfect", type="int", description="是否加精 0否 1是"),
- *                  @OA\Property(property="top", type="int", description="是否设顶 0否 1是"),
- *                  @OA\Property(property="recommend", type="int", description="是否推荐 0否 1是"),
- *                  @OA\Property(property="shield", type="int", description="是否屏蔽 0否 1是"),
- *                  @OA\Property(property="is_video", type="int", description="是否视频帖子 0否 1是"),
- *                  @OA\Property(property="created_at", type="date", description="创建时间",),
+ *              @OA\Property(property="data", type="array", description="帖子列表数据",
+ *                 @OA\Items(
+ *                      @OA\Property(property="id", type="int", description="帖子id"),
+ *                      @OA\Property(property="post", type="object", description="帖子数据",
+ *                                  @OA\Property(property="user_id", type="int", description="用户id"),
+ *                                  @OA\Property(property="title", type="string", description="标题"),
+ *                                  @OA\Property(property="content", type="string", description="内容"),
+ *                                  @OA\Property(property="view", type="int", description="浏览量"),
+ *                                  @OA\Property(property="post_praise_count", type="int", description="点赞数"),
+ *                                  @OA\Property(property="visitor_user_id", type="int", description="浏览者ID 没登录者为0"),
+ *                                  @OA\Property(property="visitor_is_enshrine", type="int", description="浏览者是否已收藏0/1"),
+ *                                  @OA\Property(property="visitor_is_praise", type="int", description="浏览者是否已点赞0/1"),
+ *                                  @OA\Property(property="is_hot", type="int", description="是否热帖 0否 1是"),
+ *                                  @OA\Property(property="is_perfect", type="int", description="是否加精 0否 1是"),
+ *                                  @OA\Property(property="top", type="int", description="是否设顶 0否 1是"),
+ *                                  @OA\Property(property="is_recommend", type="int", description="是否推荐 0否 1是"),
+ *                                  @OA\Property(property="is_shield", type="int", description="是否屏蔽 0否 1是"),
+ *                                  @OA\Property(property="is_video", type="int", description="是否视频帖子 0否 1是"),
+ *                                  @OA\Property(property="created_at", type="date", description="创建时间",),
+ *                                  @OA\Property(property="publish_user", type="object", description="发帖者数据",
+ *                                              @OA\Property(property="id", type="int", description="发帖者id"),
+ *                                              @OA\Property(property="user_name", type="string", description="发帖者名字"),
+ *
+ *                                 ),
+ *                                 @OA\Property(property="post_classify", type="array", description="帖子所属板块",
+ *                                        @OA\Items(
+ *                                              @OA\Property(property="classify_id", type="int", description="板块id"),
+ *                                              @OA\Property(property="classify_name", type="string", description="板块名字"),
+ *                                        ),
+ *
+ *                                 ),
+ *
+ *                      ),
+ *                 ),
  *              ),
  *              @OA\Property(property="first_page_url",type="string",description=""),
  *              @OA\Property(property="from",type="int",description=""),
@@ -101,7 +122,9 @@
  *              @OA\Property(property="to",type="int",description=""),
  *              @OA\Property(property="total",type="int",description=""),
  *             ),
- *        ),
+ *       example={    "current_page": 1,    "data": {        {            "id": 18,            "post": {                "id": 18,                "user_id": 10000009,                "title": "帖子内容存在违规行为已屏蔽内容",                "content": "帖子内容存在违规行为已屏蔽内容",                "view": 0,                "created_at": null,                "updated_at": null,                "deleted_at": null,                "post_praise_count": 0,                "visitor_user_id": 10000009,                "visitor_is_enshrine": 0,                "visitor_is_praise": 1,                "is_perfect": 0,                "is_hot": 0,                "is_recommend": 0,                "is_shield": 1,                "is_video": 0,                "post_classify": {                    {                        "classify_id": 1,                        "post_id": 18,                        "name": "1号板块"                    },                    {                        "classify_id": 2,                        "post_id": 18,                        "name": "2号版块"                    }                },                "publish_user": {                    "id": 10000009,                    "user_name": "用户1012623458"                }            }        }    },    "first_page_url": "http://platform.com/api/post/own?page=1",    "from": 1,    "last_page": 1,    "last_page_url": "http://platform.com/api/post/own?page=1",    "next_page_url": null,    "path": "http://platform.com/api/post/own",    "per_page": 10,    "prev_page_url": null,    "to": 2,    "total": 2}
+ *
+ *              ),
  *     )
  * )
  */
@@ -175,53 +198,61 @@
  *         response=200,
  *         description="SUCCESS/成功",
  *         @OA\MediaType(
- *                        mediaType="application/json",
+ *             mediaType="application/json",
  *             @OA\Schema(
- *              @OA\Property(property="current_page", type="integer", description="页数"),
+ *              @OA\Property(property="current_page", type="int", description="页数"),
  *              @OA\Property(property="data", type="array", description="帖子列表数据",
- *                     @OA\Items(
- *                      @OA\Property(property="user_id",type="integer",description="用户ID" ),
- *                      @OA\Property(property="post_id",type="integer",description="收藏的帖子ID" ),
- *                      @OA\Property(property="created_at",type="string",description="收藏时间" ),
- *                      @OA\Property(property="post",type="object",description="帖子数据",
- *                              @OA\Property(property="id", type="integer", description="id"),
- *                              @OA\Property(property="user_id", type="integer", description="帖主用户id"),
- *                              @OA\Property(property="title", type="string", description="标题"),
- *                              @OA\Property(property="content", type="string", description="内容"),
- *                              @OA\Property(property="view", type="integer", description="浏览量"),
- *                              @OA\Property(property="hot", type="integer", description="是否热帖 0否 1是"),
- *                              @OA\Property(property="perfect", type="integer", description="是否加精 0否 1是"),
- *                              @OA\Property(property="top", type="integer", description="是否设顶 0否 1是"),
- *                              @OA\Property(property="recommend", type="integer", description="是否推荐 0否 1是"),
- *                              @OA\Property(property="shield", type="integer", description="是否屏蔽 0否 1是"),
- *                              @OA\Property(property="is_video", type="integer", description="是否视频帖子 0否 1是"),
- *                              @OA\Property(property="created_at", type="string", description="创建时间",),
- *                              @OA\Property(property="post_praise_count", type="integer", description="帖子点赞数",),
- *                              @OA\Property(property="visitor_user_id", type="integer", description="当前浏览者ID -1 为没登录用户",),
- *                              @OA\Property(property="visitor_is_enshrine", type="integer", description="当前浏览者是否已经收藏该帖子 0没收藏 1已收藏",),
- *                              @OA\Property(property="visitor_is_praise", type="integer", description="当前浏览者是否已经点赞该帖子 0没点赞 1已点赞",),
- *                              @OA\Property(property="publish_user",type="object",description="帖子发帖用户数据",
- *                                     @OA\Property(property="user_name", type="string", description="发帖用户名字",),
- *                                     @OA\Property(property="id", type="integer", description="发帖用户Id",),
- *                                          )
- *                                  )
- *                              )
- *                          ),
+ *                 @OA\Items(
+ *                      @OA\Property(property="user_id", type="int", description="用户id"),
+ *                      @OA\Property(property="post_id", type="int", description="帖子id"),
+ *                      @OA\Property(property="created_at", type="string", description="收藏时间"),
+ *                      @OA\Property(property="post", type="object", description="帖子数据",
+ *                                  @OA\Property(property="user_id", type="int", description="用户id"),
+ *                                  @OA\Property(property="title", type="string", description="标题"),
+ *                                  @OA\Property(property="content", type="string", description="内容"),
+ *                                  @OA\Property(property="view", type="int", description="浏览量"),
+ *                                  @OA\Property(property="post_praise_count", type="int", description="点赞数"),
+ *                                  @OA\Property(property="visitor_user_id", type="int", description="浏览者ID 没登录者为0"),
+ *                                  @OA\Property(property="visitor_is_enshrine", type="int", description="浏览者是否已收藏0/1"),
+ *                                  @OA\Property(property="visitor_is_praise", type="int", description="浏览者是否已点赞0/1"),
+ *                                  @OA\Property(property="is_hot", type="int", description="是否热帖 0否 1是"),
+ *                                  @OA\Property(property="is_perfect", type="int", description="是否加精 0否 1是"),
+ *                                  @OA\Property(property="top", type="int", description="是否设顶 0否 1是"),
+ *                                  @OA\Property(property="is_recommend", type="int", description="是否推荐 0否 1是"),
+ *                                  @OA\Property(property="is_shield", type="int", description="是否屏蔽 0否 1是"),
+ *                                  @OA\Property(property="is_video", type="int", description="是否视频帖子 0否 1是"),
+ *                                  @OA\Property(property="created_at", type="date", description="创建时间",),
+ *                                  @OA\Property(property="publish_user", type="object", description="发帖者数据",
+ *                                              @OA\Property(property="id", type="int", description="发帖者id"),
+ *                                              @OA\Property(property="user_name", type="string", description="发帖者名字"),
+ *
+ *                                 ),
+ *                                 @OA\Property(property="post_classify", type="array", description="帖子所属板块",
+ *                                        @OA\Items(
+ *                                              @OA\Property(property="classify_id", type="int", description="板块id"),
+ *                                              @OA\Property(property="classify_name", type="string", description="板块名字"),
+ *                                        ),
+ *
+ *                                 ),
+ *
+ *                      ),
+ *                 ),
+ *              ),
  *              @OA\Property(property="first_page_url",type="string",description=""),
- *              @OA\Property(property="from",type="integer",description=""),
- *              @OA\Property(property="last_page",type="integer",description=""),
+ *              @OA\Property(property="from",type="int",description=""),
+ *              @OA\Property(property="last_page",type="int",description=""),
  *              @OA\Property(property="last_page_url",type="string",description=""),
  *              @OA\Property(property="next_page_url",type="string",description=""),
  *              @OA\Property(property="path",type="string",description=""),
- *              @OA\Property(property="per_page",type="integer",description=""),
- *              @OA\Property(property="prev_page_url",type="integer",description=""),
- *              @OA\Property(property="to",type="integer",description=""),
- *              @OA\Property(property="total",type="integer",description=""),
+ *              @OA\Property(property="per_page",type="int",description=""),
+ *              @OA\Property(property="prev_page_url",type="int",description=""),
+ *              @OA\Property(property="to",type="int",description=""),
+ *              @OA\Property(property="total",type="int",description=""),
  *             ),
- *      example={"current_page":1,"data":{{"user_id":10000009,"post_id":21,"created_at":"2020-06-11T05:51:50.000000Z","updated_at":null,"post":{"id":21,"user_id":10000009,"title":"123","content":"1231","view":0,"hot":0,"perfect":0,"top":0,"recommend":0,"shield":0,"is_vip":0,"is_video":0,"created_at":"2020-06-07T13:29:47.000000Z","updated_at":"2020-06-07T13:29:47.000000Z","deleted_at":null,"post_praise_count":0,"visitor_user_id":10000009,"visitor_is_enshrine":0,"visitor_is_praise":1,"publish_user":{"id":10000009,"user_name":"用户1012623458"}}}},"first_page_url":"http://platform.com/api/post/enshrine?page=1","from":1,"last_page":4,"last_page_url":"http://platform.com/api/post/enshrine?page=4","next_page_url":"http://platform.com/api/post/enshrine?page=2","path":"http://platform.com/api/post/enshrine","per_page":1,"prev_page_url":null,"to":1,"total":4}
- *     ),
- *     ),
+ *       example={    "current_page": 1,    "data": {        {            "user_id": 10000009,            "post_id": 18,            "created_at": "2020-06-11T05:50:43.000000Z",            "updated_at": null,            "post": {                "id": 18,                "user_id": 10000009,                "title": "帖子内容存在违规行为已屏蔽内容",                "content": "帖子内容存在违规行为已屏蔽内容",                "view": 0,                "created_at": null,                "updated_at": null,                "deleted_at": null,                "post_praise_count": 0,                "visitor_user_id": 10000009,                "visitor_is_enshrine": 0,                "visitor_is_praise": 1,                "is_perfect": 0,                "is_hot": 0,                "is_recommend": 0,                "is_shield": 1,                "is_video": 0,                "post_classify": {                    {                        "classify_id": 1,                        "post_id": 18,                        "name": "1号板块"                    },                    {                        "classify_id": 2,                        "post_id": 18,                        "name": "2号版块"                    }                },                "publish_user": {                    "id": 10000009,                    "user_name": "用户1012623458"                }            }        }    },    "first_page_url": "http://platform.com/api/post/enshrine?page=1",    "from": 1,    "last_page": 1,    "last_page_url": "http://platform.com/api/post/enshrine?page=1",    "next_page_url": null,    "path": "http://platform.com/api/post/enshrine",    "per_page": 10,    "prev_page_url": null,    "to": 4,    "total": 4}
  *
+ *              ),
+ *     )
  * )
  */
 
@@ -244,51 +275,131 @@
  *         response=200,
  *         description="SUCCESS/成功",
  *         @OA\MediaType(
- *                        mediaType="application/json",
+ *             mediaType="application/json",
  *             @OA\Schema(
- *              @OA\Property(property="current_page", type="integer", description="页数"),
+ *              @OA\Property(property="current_page", type="int", description="页数"),
  *              @OA\Property(property="data", type="array", description="帖子列表数据",
- *                     @OA\Items(
- *                      @OA\Property(property="id",type="integer",description="帖子ID" ),
- *                      @OA\Property(property="user_id",type="integer",description="楼主ID" ),
- *                      @OA\Property(property="title",type="string",description="标题" ),
- *                      @OA\Property(property="content",type="string",description="内容" ),
- *                      @OA\Property(property="view",type="string",description="浏览量" ),
- *                      @OA\Property(property="hot",type="string",description="是否热帖" ),
- *                      @OA\Property(property="perfect",type="string",description="是否精帖" ),
- *                      @OA\Property(property="top",type="string",description="是否设定" ),
- *                      @OA\Property(property="recommend",type="string",description="是否推荐" ),
- *                      @OA\Property(property="shield",type="string",description="是否屏蔽" ),
- *                      @OA\Property(property="is_vip",type="string",description="" ),
- *                      @OA\Property(property="is_video",type="string",description="是否有视频" ),
- *                      @OA\Property(property="created_at",type="string",description="创建时间" ),
- *                      @OA\Property(property="updated_at",type="string",description="" ),
- *                      @OA\Property(property="deleted_at",type="string",description="" ),
- *                      @OA\Property(property="post_praise_count",type="string",description="点赞总数" ),
- *                      @OA\Property(property="post_comment_count",type="string",description="评论总数" ),
- *                      @OA\Property(property="visitorPraise",type="string",description="浏览者是否已点赞" ),
- *                      @OA\Property(property="visitorEnshrine",type="string",description="浏览者是否已收藏" ),
- *                      @OA\Property(property="visitorUserId",type="string",description="浏览者用户ID 0为没登录用户" ),
- *                      @OA\Property(property="publish_user",type="object",description="楼主信息",
- *                                  @OA\Property(property="id",type="integer",description="楼主ID"),
- *                                  @OA\Property(property="user_name",type="integer",description="楼主名字"),
- *                                  ),
- *                              ),
- *                          ),
+ *                 @OA\Items(
+ *                      @OA\Property(property="post_id", type="int", description="帖子id"),
+ *                      @OA\Property(property="classify_id", type="int", description="板块id"),
+ *                      @OA\Property(property="is_top", type="int", description="是否设顶"),
+ *                      @OA\Property(property="post", type="object", description="帖子数据",
+ *                                  @OA\Property(property="user_id", type="int", description="用户id"),
+ *                                  @OA\Property(property="title", type="string", description="标题"),
+ *                                  @OA\Property(property="content", type="string", description="内容"),
+ *                                  @OA\Property(property="view", type="int", description="浏览量"),
+ *                                  @OA\Property(property="post_praise_count", type="int", description="点赞数"),
+ *                                  @OA\Property(property="visitor_user_id", type="int", description="浏览者ID 没登录者为0"),
+ *                                  @OA\Property(property="visitor_is_enshrine", type="int", description="浏览者是否已收藏0/1"),
+ *                                  @OA\Property(property="visitor_is_praise", type="int", description="浏览者是否已点赞0/1"),
+ *                                  @OA\Property(property="is_hot", type="int", description="是否热帖 0否 1是"),
+ *                                  @OA\Property(property="is_perfect", type="int", description="是否加精 0否 1是"),
+ *                                  @OA\Property(property="top", type="int", description="是否设顶 0否 1是"),
+ *                                  @OA\Property(property="is_recommend", type="int", description="是否推荐 0否 1是"),
+ *                                  @OA\Property(property="is_shield", type="int", description="是否屏蔽 0否 1是"),
+ *                                  @OA\Property(property="is_video", type="int", description="是否视频帖子 0否 1是"),
+ *                                  @OA\Property(property="created_at", type="date", description="创建时间",),
+ *                                  @OA\Property(property="publish_user", type="object", description="发帖者数据",
+ *                                              @OA\Property(property="id", type="int", description="发帖者id"),
+ *                                              @OA\Property(property="user_name", type="string", description="发帖者名字"),
+ *
+ *                                 ),
+ *                                 @OA\Property(property="post_classify", type="array", description="帖子所属板块",
+ *                                        @OA\Items(
+ *                                              @OA\Property(property="classify_id", type="int", description="板块id"),
+ *                                              @OA\Property(property="classify_name", type="string", description="板块名字"),
+ *                                        ),
+ *
+ *                                 ),
+ *
+ *                      ),
+ *                 ),
+ *              ),
  *              @OA\Property(property="first_page_url",type="string",description=""),
- *              @OA\Property(property="from",type="integer",description=""),
- *              @OA\Property(property="last_page",type="integer",description=""),
+ *              @OA\Property(property="from",type="int",description=""),
+ *              @OA\Property(property="last_page",type="int",description=""),
  *              @OA\Property(property="last_page_url",type="string",description=""),
  *              @OA\Property(property="next_page_url",type="string",description=""),
  *              @OA\Property(property="path",type="string",description=""),
- *              @OA\Property(property="per_page",type="integer",description=""),
- *              @OA\Property(property="prev_page_url",type="integer",description=""),
- *              @OA\Property(property="to",type="integer",description=""),
- *              @OA\Property(property="total",type="integer",description=""),
+ *              @OA\Property(property="per_page",type="int",description=""),
+ *              @OA\Property(property="prev_page_url",type="int",description=""),
+ *              @OA\Property(property="to",type="int",description=""),
+ *              @OA\Property(property="total",type="int",description=""),
  *             ),
- *      example={"current_page":1,"data":{{"id":23,"user_id":10000009,"title":"123","content":"1231","view":0,"hot":0,"perfect":0,"top":0,"recommend":0,"shield":0,"is_vip":0,"is_video":0,"created_at":"2020-06-07T13:32:59.000000Z","updated_at":"2020-06-07T13:32:59.000000Z","deleted_at":null,"post_praise_count":0,"post_comment_count":0,"visitorPraise":0,"visitorEnshrine":0,"visitorUserId":10000009,"publish_user":{"id":10000009,"user_name":"用户1012623458"}}},"first_page_url":"http://platform.com/api/post/index?page=1","from":1,"last_page":1,"last_page_url":"http://platform.com/api/post/index?page=1","next_page_url":null,"path":"http://platform.com/api/post/index","per_page":10,"prev_page_url":null,"to":4,"total":4}
- *        ),
- *     ),
+ *       example={    "current_page": 1,    "data": {        {            "post_id": 18,            "classify_id": 1,            "is_top": 0,            "created_at": null,            "updated_at": null,            "deleted_at": null,            "post": {                "id": 18,                "user_id": 10000009,                "title": "帖子内容存在违规行为已屏蔽内容",                "content": "帖子内容存在违规行为已屏蔽内容",                "view": 0,                "created_at": null,                "updated_at": null,                "deleted_at": null,                "post_praise_count": 0,                "visitor_user_id": 10000009,                "visitor_is_enshrine": 0,                "visitor_is_praise": 1,                "is_perfect": 0,                "is_hot": 0,                "is_recommend": 0,                "is_shield": 1,                "is_video": 0,                "post_classify": {                    {                        "classify_id": 1,                        "post_id": 18,                        "name": "1号板块"                    },                    {                        "classify_id": 2,                        "post_id": 18,                        "name": "2号版块"                    }                },                "publish_user": {                    "id": 10000009,                    "user_name": "用户1012623458"                }            }        }    },    "first_page_url": "http://platform.com/api/post/index?page=1",    "from": 1,    "last_page": 1,    "last_page_url": "http://platform.com/api/post/index?page=1",    "next_page_url": null,    "path": "http://platform.com/api/post/index",    "per_page": 10,    "prev_page_url": null,    "to": 2,    "total": 2}
+ *
+ *              ),
+ *     )
+ *
+ * )
+ */
+
+/**
+ * @OA\Get(
+ *     path="/api/post/index/recommend",
+ *     tags={"帖子组"},
+ *     summary="推荐帖子列表",
+ *     description="",
+ *     security={
+ *      {"api_token": {}}
+ *    },
+ *     @OA\Response(
+ *         response=200,
+ *         description="SUCCESS/成功",
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *              @OA\Property(property="current_page", type="int", description="页数"),
+ *              @OA\Property(property="data", type="array", description="帖子列表数据",
+ *                 @OA\Items(
+ *                      @OA\Property(property="post_id", type="int", description="帖子id"),
+ *                      @OA\Property(property="post", type="object", description="帖子数据",
+ *                                  @OA\Property(property="user_id", type="int", description="用户id"),
+ *                                  @OA\Property(property="title", type="string", description="标题"),
+ *                                  @OA\Property(property="content", type="string", description="内容"),
+ *                                  @OA\Property(property="view", type="int", description="浏览量"),
+ *                                  @OA\Property(property="post_praise_count", type="int", description="点赞数"),
+ *                                  @OA\Property(property="visitor_user_id", type="int", description="浏览者ID 没登录者为0"),
+ *                                  @OA\Property(property="visitor_is_enshrine", type="int", description="浏览者是否已收藏0/1"),
+ *                                  @OA\Property(property="visitor_is_praise", type="int", description="浏览者是否已点赞0/1"),
+ *                                  @OA\Property(property="is_hot", type="int", description="是否热帖 0否 1是"),
+ *                                  @OA\Property(property="is_perfect", type="int", description="是否加精 0否 1是"),
+ *                                  @OA\Property(property="top", type="int", description="是否设顶 0否 1是"),
+ *                                  @OA\Property(property="is_recommend", type="int", description="是否推荐 0否 1是"),
+ *                                  @OA\Property(property="is_shield", type="int", description="是否屏蔽 0否 1是"),
+ *                                  @OA\Property(property="is_video", type="int", description="是否视频帖子 0否 1是"),
+ *                                  @OA\Property(property="created_at", type="date", description="创建时间",),
+ *                                  @OA\Property(property="publish_user", type="object", description="发帖者数据",
+ *                                              @OA\Property(property="id", type="int", description="发帖者id"),
+ *                                              @OA\Property(property="user_name", type="string", description="发帖者名字"),
+ *
+ *                                 ),
+ *                                 @OA\Property(property="post_classify", type="array", description="帖子所属板块",
+ *                                        @OA\Items(
+ *                                              @OA\Property(property="classify_id", type="int", description="板块id"),
+ *                                              @OA\Property(property="classify_name", type="string", description="板块名字"),
+ *                                        ),
+ *
+ *                                 ),
+ *
+ *                      ),
+ *                 ),
+ *              ),
+ *              @OA\Property(property="first_page_url",type="string",description=""),
+ *              @OA\Property(property="from",type="int",description=""),
+ *              @OA\Property(property="last_page",type="int",description=""),
+ *              @OA\Property(property="last_page_url",type="string",description=""),
+ *              @OA\Property(property="next_page_url",type="string",description=""),
+ *              @OA\Property(property="path",type="string",description=""),
+ *              @OA\Property(property="per_page",type="int",description=""),
+ *              @OA\Property(property="prev_page_url",type="int",description=""),
+ *              @OA\Property(property="to",type="int",description=""),
+ *              @OA\Property(property="total",type="int",description=""),
+ *             ),
+ *       example={    "current_page": 1,    "data": {        {            "post_id": 18,            "classify_id": 1,            "is_top": 0,            "created_at": null,            "updated_at": null,            "deleted_at": null,            "post": {                "id": 18,                "user_id": 10000009,                "title": "帖子内容存在违规行为已屏蔽内容",                "content": "帖子内容存在违规行为已屏蔽内容",                "view": 0,                "created_at": null,                "updated_at": null,                "deleted_at": null,                "post_praise_count": 0,                "visitor_user_id": 10000009,                "visitor_is_enshrine": 0,                "visitor_is_praise": 1,                "is_perfect": 0,                "is_hot": 0,                "is_recommend": 0,                "is_shield": 1,                "is_video": 0,                "post_classify": {                    {                        "classify_id": 1,                        "post_id": 18,                        "name": "1号板块"                    },                    {                        "classify_id": 2,                        "post_id": 18,                        "name": "2号版块"                    }                },                "publish_user": {                    "id": 10000009,                    "user_name": "用户1012623458"                }            }        }    },    "first_page_url": "http://platform.com/api/post/index?page=1",    "from": 1,    "last_page": 1,    "last_page_url": "http://platform.com/api/post/index?page=1",    "next_page_url": null,    "path": "http://platform.com/api/post/index",    "per_page": 10,    "prev_page_url": null,    "to": 2,    "total": 2}
+ *
+ *              ),
+ *     )
  *
  * )
  */

@@ -40,11 +40,6 @@ class Post extends BaseModel
         'title',
         'content',
         'view',
-        'hot',
-        'perfect',
-        'top',
-        'shield',
-        'recommend',
     ];
 
     /**

@@ -16,7 +16,12 @@ use Modules\CutePet\Models\CommonalityPostRecommend;
 use Modules\CutePet\Models\Post;
 use Modules\CutePet\Models\PostClassify;
 use Modules\CutePet\Models\PostEnshrine;
+use Modules\CutePet\Models\PostHot;
+use Modules\CutePet\Models\PostIsVideo;
+use Modules\CutePet\Models\PostPerfect;
 use Modules\CutePet\Models\PostPraise;
+use Modules\CutePet\Models\PostRecommend;
+use Modules\CutePet\Models\PostShield;
 use Modules\CutePet\Models\User;
 
 /**
@@ -59,18 +64,24 @@ class PostService
     }
 
     /**
+     * 自发帖子列表
      * @param $userId
-     * @param null $visitor
      * @return mixed
      */
-    public function showUserId($userId,$visitor = null)
+    public function showUserIdPost($userId)
     {
-        if ($userId == $visitor){
-            $posts = Post::where('user_id',$userId)
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
+        $userPosts = Post::where('user_id',$userId)
+            ->orderBy('created_at', 'desc')
+            ->select('id')
+            ->paginate(10);
+
+        $posts = $this->getIndexPost($userPosts->pluck('id'),$userId)->keyBy('id');
+
+        foreach ($userPosts as $userPost){
+            $userPost->post = $posts->get($userPost->id);
         }
-        return $posts;
+
+        return $userPosts;
     }
 
     /**
@@ -81,59 +92,18 @@ class PostService
         if (! Classify::where('id',$classifyId)->exists()){
             abort(404,'板块不存在');
         }
-        $classifyPostIds = PostClassify::where('classify_id',$classifyId)->get()->pluck('post_id');
-
-
-
-
-
-
-
-
-
-
-        $classifyPostIds = PostClassify::where('classify_id',$classifyId)->select('post_id')->get()->pluck('post_id');
-
-        $postQuery = Post::query();
-        $posts = $postQuery
-            ->whereIn('id',$classifyPostIds)
-            ->orderBy('top','desc')
+        $classifyPosts = PostClassify::where('classify_id',$classifyId)
+            ->orderBy('is_top','desc')
             ->orderBy('created_at','desc')
-
-            ->with([
-            'publishUser'=>function($query){
-            $query->select('id','user_name');
-        }
-        ])
-            ->withCount([
-                'postPraise',
-                'PostComment',
-            ])
             ->paginate($paginate);
 
-        $postIds = $posts->pluck('id');
+        $posts = $this->getIndexPost($classifyPosts->pluck('post_id'),$userId)->keyBy('id');
 
-        $postPraises = PostPraise::where('user_id',$userId)
-            ->whereIn('post_id',$postIds)
-            ->select('post_id','user_id')
-            ->get()
-            ->pluck('post_id')
-            ->toArray();
-
-        $postEnshrine = PostEnshrine::where('user_id',$userId)
-            ->whereIn('post_id',$postIds)
-            ->select('post_id','user_id')
-            ->get()
-            ->pluck('post_id')
-            ->toArray();
-
-        foreach ($posts as $post){
-            $post->visitorPraise = in_array($post->id,$postPraises)?1:0;
-            $post->visitorEnshrine = in_array($post->id,$postEnshrine)?1:0;
-            $post->visitorUserId = $userId;
+        foreach ($classifyPosts as $classifyPost){
+        $classifyPost->post = $posts->get($classifyPost->post_id);
         }
 
-        return $posts;
+        return $classifyPosts;
     }
 
 
@@ -182,7 +152,7 @@ class PostService
      * @param $userId
      * @return mixed
      */
-    public function indexEnshrine($user,$paginate = 1)
+    public function indexEnshrine($user,$paginate = 10)
     {
         $postEnshrines = PostEnshrine::where('user_id',$user->id)
             ->orderBy('created_at','desc')
@@ -210,6 +180,7 @@ class PostService
             ->whereIn('id',$postIds)
             ->get();
 
+        //浏览者附加信息
         if (null!= $visitorId){
             $postEnshrines = PostEnshrine::where('user_id',$visitorId)
                 ->whereIn('post_id',$postIds)
@@ -228,14 +199,45 @@ class PostService
             $postPraises = collect();
         }
 
+        //帖子附加信息
+        $postPerfect =  PostPerfect::whereIn('post_id',$postIds)->get()->keyBy('post_id');//精品帖
+        $postHot =  PostHot::whereIn('post_id',$postIds)->get()->keyBy('post_id');//热帖
+        $postRecommend =  PostRecommend::whereIn('post_id',$postIds)->get()->keyBy('post_id');//推荐
+        $postShield =  PostShield::whereIn('post_id',$postIds)->get()->keyBy('post_id');//屏蔽
+        $postIsVideo =  PostIsVideo::whereIn('post_id',$postIds)->get()->keyBy('post_id');//是否有视频
+        //板块ID，名字嵌套
+        $postClassifys = PostClassify::whereIn('post_id',$postIds)->select('classify_id','post_id')->get();
+
+        $classifys = Classify::whereIn('id',$postClassifys->pluck('classify_id'))->select('id','name')->get()->keyBy('id');
+
+        foreach ($postClassifys as $postClassify){
+            $postClassify->name = $classifys->get($postClassify->classify_id)->name??null;
+        }
+
+        $postClassifysGroupBy = $postClassifys->groupBy('post_id');
+
         foreach ($posts as $post){
-            $post->visitor_user_id = $visitorId;
+            //浏览者 对接数据
+            $post->visitor_user_id = $visitorId?$visitorId:0;
             $post->visitor_is_enshrine = $postEnshrines->get($post->id) ? 0: 1;
             $post->visitor_is_praise = $postPraises->get($post->id) ? 0:1;
+            //附加数据 对接
+            $post->is_perfect = $postPerfect->get($post->id) ? 1:0;
+            $post->is_hot = $postHot->get($post->id) ? 1:0;
+            $post->is_recommend = $postRecommend->get($post->id) ? 1:0;
+            $post->is_shield = $postShield->get($post->id) ? 1:0;
+            $post->is_video = $postIsVideo->get($post->id) ? 1:0;
+            $post->post_classify = $postClassifysGroupBy->get($post->id) ?? [];
+            //屏蔽 执行
+            if ($post->is_shield == 1){
+            $post->title = '帖子内容存在违规行为已屏蔽内容';
+            $post->content = '帖子内容存在违规行为已屏蔽内容';
+            }
         }
 
         return $posts;
     }
+
 
 /**
  * 评论列表
@@ -306,47 +308,47 @@ class PostService
     /**
      * 用户关注板块
      */
-    public function userAddClassify($userId,$classifyId)
-    {
-
-        if (UserClassify::where('user_id',$userId)
-        ->where('classify_id',$classifyId)
-        ->exists())
-        {
-
-            UserClassify::where('user_id',$userId)
-                ->where('classify_id',$classifyId)
-                ->delete();
-            return [0];
-        }else{
-
-            UserClassify::create(['user_id'=>$userId,'classify_id'=>$classifyId]);
-            return [1];
-        }
-    }
-
-    //最近浏览帖子记录
-    public function recentPost($userId)
-    {
-        return PostBrowse::where('user_id',$userId)
-            ->with(['post'])
-            ->orderBy('created_at','desc')
-            ->Limit(10)
-            ->get();
-    }
-
-    public function addRecentPost($userId,$postId)
-    {
-        if (PostBrowse::where('user_id',$userId)
-            ->where('post_id',$postId)
-            ->exists()
-        ){
-            PostBrowse::where('user_id',$userId)
-                ->where('post_id',$postId)
-                ->delete();
-        }
-        PostBrowse::create(['user_id'=>$userId,'post_id'=>$postId]);
-    }
+//    public function userAddClassify($userId,$classifyId)
+//    {
+//
+//        if (UserClassify::where('user_id',$userId)
+//        ->where('classify_id',$classifyId)
+//        ->exists())
+//        {
+//
+//            UserClassify::where('user_id',$userId)
+//                ->where('classify_id',$classifyId)
+//                ->delete();
+//            return [0];
+//        }else{
+//
+//            UserClassify::create(['user_id'=>$userId,'classify_id'=>$classifyId]);
+//            return [1];
+//        }
+//    }
+//
+//    //最近浏览帖子记录
+//    public function recentPost($userId)
+//    {
+//        return PostBrowse::where('user_id',$userId)
+//            ->with(['post'])
+//            ->orderBy('created_at','desc')
+//            ->Limit(10)
+//            ->get();
+//    }
+//
+//    public function addRecentPost($userId,$postId)
+//    {
+//        if (PostBrowse::where('user_id',$userId)
+//            ->where('post_id',$postId)
+//            ->exists()
+//        ){
+//            PostBrowse::where('user_id',$userId)
+//                ->where('post_id',$postId)
+//                ->delete();
+//        }
+//        PostBrowse::create(['user_id'=>$userId,'post_id'=>$postId]);
+//    }
 
 
     /**
@@ -411,62 +413,16 @@ class PostService
      */
     public function indexRecommend($userId = 0)
     {
-
         $commonalitys = CommonalityPostRecommend::query()->orderBy('id','desc')->paginate(10);
-        dd($commonalitys);
-        $postJointData = $this->postJointData($commonalitys->pulck('post_id'),$userId)->keyBy('id');
+
+        $posts = $this->getIndexPost($commonalitys->pluck('post_id'),$userId)->keyBy('id');
 
         foreach ($commonalitys as $commonality){
-            $commonality->postJointData = $postJointData->get($commonality->post_id);
+            $commonality->post = $posts->get($commonality->post_id)??[];
         }
+        return $commonalitys;
     }
 
-    /**
-     * 帖子列表联合数据查询
-     * @param array $postIds 帖子IDS
-     * @param int $visitorUserId 浏览者用户ID
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function postJointData(array $postIds,int $visitorUserId)
-    {
-        $postQuery = Post::query();
-        $posts = $postQuery
-            ->whereIn('id',$postIds)
-            ->with([
-                'publishUser'=>function($query){
-                    $query->select('id','user_name');
-                }
-            ])
-            ->withCount([
-                'postPraise',
-                'PostComment',
-            ])
-            ->get();
-
-        $postIds = $posts->pluck('id');
-
-        $postPraises = PostPraise::where('user_id',$visitorUserId)
-                ->whereIn('post_id',$postIds)
-                ->select('post_id','user_id')
-                ->get()
-                ->pluck('post_id')
-                ->toArray();
-
-        $postEnshrine = PostEnshrine::where('user_id',$visitorUserId)
-            ->whereIn('post_id',$postIds)
-            ->select('post_id','user_id')
-            ->get()
-            ->pluck('post_id')
-            ->toArray();
-
-        foreach ($posts as $post){
-            $post->visitorPraise = in_array($post->id,$postPraises)?1:0;
-            $post->visitorEnshrine = in_array($post->id,$postEnshrine)?1:0;
-            $post->visitorUserId = $visitorUserId;
-        }
-
-        return $posts;
-    }
 
 
 

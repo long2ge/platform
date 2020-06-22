@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostClassifyTable extends Migration
+class CreatePostShieldTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePostClassifyTable extends Migration
      */
     public function up()
     {
-        $table = 'post_classify';
+        $table = 'post_shield';
         $dbConnection = config('cutepet.db-connection');
         Schema::connection($dbConnection)->create($table, function (Blueprint $table){
-            $table->integer('post_id')->comment('帖子ID');
-            $table->integer('classify_id')->comment('板块ID');
+            $table->bigIncrements('id');
+            $table->integer('post_id')->comment('屏蔽帖子ID');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,8 +30,6 @@ class CreatePostClassifyTable extends Migration
      */
     public function down()
     {
-        $table = 'post_classify';
-        $dbConnection = config('cutepet.db-connection');
-        Schema::connection($dbConnection)->dropIfExists($table);
+        Schema::dropIfExists('post_shield');
     }
 }
