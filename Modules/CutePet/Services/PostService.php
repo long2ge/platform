@@ -427,8 +427,7 @@ class PostService
      * 修改帖子
      * @param $userId
      * @param $postId
-     * @param $title
-     * @param $content
+     * @param $postData
      */
     public function putPost($userId,$postId,$postData)
     {

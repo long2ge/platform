@@ -64,6 +64,19 @@ class PostController extends CutePetController
     }
 
     /**
+     *帖子详情
+     */
+    public function showPost(Request $request)
+    {
+        $postId = $request->input('post_id');
+        $userId = $request->user()->id;
+
+        $post = app(PostService::class)->getIndexPost([$postId],$userId);
+
+        return response()->json(['data'=>$post]);
+
+    }
+    /**
      * 自发帖子列表
      */
     public function indexOwn(Request $request)

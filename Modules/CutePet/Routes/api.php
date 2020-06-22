@@ -38,7 +38,7 @@ $router->middleware('auth:cute_pet_api')->delete('/post', ['uses' => 'V1\Post\Po
 $router->middleware('auth:cute_pet_api')->put('/post', ['uses' => 'V1\Post\PostController@putPost']);
 
 /**
- * 修改帖子
+ * 帖子详情
  */
 $router->middleware('auth:cute_pet_api')->get('/post', ['uses' => 'V1\Post\PostController@showPost']);
 
