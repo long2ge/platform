@@ -403,3 +403,32 @@
  *
  * )
  */
+
+/**
+ * @OA\Put(
+ *     path="/api/post",
+ *    @OA\RequestBody(@OA\JsonContent(
+ *              required={"post_id",},
+ *              @OA\Property(property="post_id", type="integer", description="帖子ID"),
+ *              @OA\Property(property="title", type="string", description="修改的标题"),
+ *              @OA\Property(property="content", type="string", description="修改的内容"),
+ *              example={"post_id": "18","title": "新标题","content": "新内容"}
+ *     )),
+ *     tags={"帖子组"},
+ *     summary="修改帖子",
+ *     description="",
+ *     security={
+ *      {"api_token": {}}
+ *    },
+ *
+ *     @OA\Response(
+ *         response=204,
+ *         description="SUCCESS/成功",
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="FALSE/失败",
+ *     ),
+ *
+ * )
+ */

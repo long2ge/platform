@@ -423,7 +423,32 @@ class PostService
         return $commonalitys;
     }
 
+    /**
+     * 修改帖子
+     * @param $userId
+     * @param $postId
+     * @param $title
+     * @param $content
+     */
+    public function putPost($userId,$postId,$postData)
+    {
+        $this->postJurisdiction($userId,[$postId]);
 
+        Post::where('id',$postId)->update($postData);
+    }
+
+    /**
+     * 用户帖子权限筛选[单条数据不返回][多条返回数据]
+     */
+    public function postJurisdiction($userId,array $postIds)
+    {
+
+        if (count($postIds) == 1 && ! Post::where('id',$postIds)->where('user_id',$userId)->exists()){
+            abort(400,'没有操作权限');
+        }
+
+        return [];
+    }
 
 
 

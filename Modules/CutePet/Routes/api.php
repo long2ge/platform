@@ -33,6 +33,16 @@ $router->middleware('auth:cute_pet_api')->post('/post/add', 'V1\Post\PostControl
 $router->middleware('auth:cute_pet_api')->delete('/post', ['uses' => 'V1\Post\PostController@deletePost']);
 
 /**
+ * 修改帖子
+ */
+$router->middleware('auth:cute_pet_api')->put('/post', ['uses' => 'V1\Post\PostController@putPost']);
+
+/**
+ * 修改帖子
+ */
+$router->middleware('auth:cute_pet_api')->get('/post', ['uses' => 'V1\Post\PostController@showPost']);
+
+/**
  * 自发帖子列表
  */
 $router->middleware('auth:cute_pet_api')->get('/post/own', ['uses' => 'V1\Post\PostController@indexOwn']);
@@ -91,13 +101,13 @@ $router->middleware('auth:cute_pet_api')->get('/post/enshrine', ['uses' => 'V1\P
 /****************************************************板块**************************************************/
 
 /**
- * 板块列表（待移后台操作）
+ * 板块列表
  */
 $router->get('/classify', ['uses' => 'V1\Post\ClassifyController@indexClassify']);
 
 
 /**
- * 增加板块(后台操作)（待做，增删改,分配）
+ * 增加板块(后台操作)（待做，增删改,分配）（待移后台操作）
  */
 $router->middleware('auth:cute_pet_api')->post('/classify', ['uses' => 'V1\Post\ClassifyController@indexClassify']);
 
@@ -114,15 +124,13 @@ $router->middleware('auth:cute_pet_api')->post('/post/praise/{post_id}', ['uses'
 $router->middleware('auth:cute_pet_api')->post('/post/comment/praise/{post_id}', ['uses' => 'V1\Post\PostCommentController@praise']);
 
 
-
-
+/**
+ * 测试
+ */
 $router->middleware('auth:cute_pet_api')
     ->post('/aaa/test', function (Request $request) {
     return $request->user();
 });
 
-//Route::post('user/passwordd','Modules\CutePet\Http\Controllers\V1\Auth@password');
-//Route::middleware('auth:api')->get('/cutepet', function (Request $request) {
-//    return $request->user();
-//});
+
 

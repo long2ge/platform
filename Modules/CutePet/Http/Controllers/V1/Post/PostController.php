@@ -45,6 +45,25 @@ class PostController extends CutePetController
     }
 
     /**
+     * 修改帖子
+     *
+     */
+    public function putPost(Request $request)
+    {
+        $userId = $request->user()->id;
+        $postId = $request->input('post_id');
+
+        $postData = $request->only([
+            'content',
+            'title',
+        ]);
+
+        app(PostService::class)->putPost($userId,$postId,$postData);
+
+        return response()->json([], 204);
+    }
+
+    /**
      * 自发帖子列表
      */
     public function indexOwn(Request $request)
