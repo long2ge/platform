@@ -91,9 +91,64 @@ class PostCommentService
      */
     public function showComment(User $user,$commentId)
     {
-        $postComment = PostComment::where('id',$commentId)->first()??abort(400,'评论不存在');
+        $Comment = $this->getComment($user,[$commentId]);
 
-        return $postComment;
+        return $Comment->get(0)??abort(400,'评论不存在');
+    }
+
+    /**
+     * 获取评论
+     */
+    public function getComment($user,$commentIds)
+    {
+        $comments = PostComment::whereIn('id',$commentIds)
+            ->withCount('postCommentsPraise')
+            ->get();
+
+        $replyComments = PostComment::whereIn('id',$comments->pluck('reply_comment_id'))
+            ->select('id','comment_content','astrict','comment_user_id')
+            ->get();
+
+        $users = User::
+        where('id',$comments->pluck('comment_user_id'))
+            ->orwhereIn('id',$replyComments->pluck('comment_user_id'))
+            ->select('id','user_name')
+            ->get()
+            ->keyBy('id');
+
+        $visitorUserPraise = PostCommentsPraise::where('user_id',$user->id)
+            ->where('praise_comment_id',$comments->pluck('id'))
+            ->get()
+            ->keyBy('praise_comment_id');
+
+        foreach ($replyComments as $replyComment){
+            $replyComment->comment_user_name = $users->get($replyComment->comment_user_id)->user_name;
+            if ($replyComment->astrict == 2){
+                $replyComment->comment_content = '评论已经删除';
+            }
+            if ($replyComment->astrict == 1){
+                $replyComment->comment_content = '违规评论已屏蔽';
+            }
+        }
+
+        $replyCommentsKeyBy = $replyComments->keyBy('id');
+
+        foreach ($comments as $comment){
+
+            $comment->reply_comment = $replyCommentsKeyBy->get($comment->reply_comment_id)?? [];
+
+            $comment->post_user = $users->get($comment->comment_user_id)?? [];
+
+            $comment->visitor_user_praise = $visitorUserPraise->get($comment->id)? 1:0;
+            if ($comment->astrict == 2){
+                $comment->comment_content = '评论已经删除';
+            }
+            if ($comment->astrict == 1){
+                $comment->comment_content = '违规评论已屏蔽';
+            }
+        }
+
+        return $comments;
     }
 
     /**

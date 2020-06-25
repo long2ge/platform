@@ -110,7 +110,7 @@ class PostCommentController extends CutePetController
 
         $data = app(PostCommentService::class)->showComment($request->user(),$commentId);
 
-        return response()->json($data, 200);
+        return response()->json(['data'=>$data], 200);
     }
 
     /**

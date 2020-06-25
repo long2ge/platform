@@ -6,6 +6,8 @@ namespace Modules\CutePet\Http\Controllers\V1\Post;
 use Illuminate\Http\Request;
 use Modules\CutePet\Http\Controllers\CutePetController;
 use Modules\CutePet\Services\PostService;
+use Modules\CutePet\Services\TaskService;
+
 
 class PostController extends CutePetController
 {
@@ -27,6 +29,7 @@ class PostController extends CutePetController
         $data['user_id'] = $request->user()->id;
 
         app(PostService::class)->addPost($data,$classifyId);
+
 
         return response()->json([], 204);
     }
@@ -72,6 +75,8 @@ class PostController extends CutePetController
         $userId = $request->user()->id;
 
         $post = app(PostService::class)->getIndexPost([$postId],$userId);
+
+        app(PostService::class)->addView($postId);
 
         return response()->json(['data'=>$post]);
 
@@ -119,17 +124,6 @@ class PostController extends CutePetController
         );
     }
 
-    /**
-     * 帖子详情88
-     */
-    public function showPostId(Request $request,$postId)
-    {
-        $userId = $request->user()->id??null;
-
-        return response()->json(
-            app(PostService::class)->showPostId($postId,$userId)
-        );
-    }
 
     /**
      * 热门帖子列表
@@ -147,7 +141,6 @@ class PostController extends CutePetController
      * 帖子评论列表
      **/
 
-
     /**
      * 分配帖子到板块
      */
@@ -158,7 +151,6 @@ class PostController extends CutePetController
      * @param $classifyId
      * @return mixed
      */
-
 
     /**
      *帖子点赞

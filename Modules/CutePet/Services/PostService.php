@@ -449,6 +449,14 @@ class PostService
         return [];
     }
 
+    /**
+     * 查看帖子详情增加浏览量
+     * @param $postId
+     */
+    public function addView($postId)
+    {
+        Post::where('id',$postId)->increment('view');
+    }
 
 
 
