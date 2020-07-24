@@ -17,11 +17,14 @@
         "laravel/framework": "^7.0",
         "laravel/horizon": "^4.3",
         "laravel/passport": "^9.1",
+        "laravel/scout": "v7.2.1",
         "laravel/telescope": "^3.3",
         "laravel/tinker": "^2.0",
         "league/fractal": "^0.19.2",
         "nwidart/laravel-modules": "^7.1",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "tamayo/laravel-scout-elastic": "^5.0",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",
