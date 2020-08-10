@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "babenkoivan/scout-elasticsearch-driver": "^4.2",
         "darkaonline/l5-swagger": "^7.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -17,13 +18,11 @@
         "laravel/framework": "^7.0",
         "laravel/horizon": "^4.3",
         "laravel/passport": "^9.1",
-        "laravel/scout": "v7.2.1",
         "laravel/telescope": "^3.3",
         "laravel/tinker": "^2.0",
         "league/fractal": "^0.19.2",
         "nwidart/laravel-modules": "^7.1",
         "predis/predis": "^1.1",
-        "tamayo/laravel-scout-elastic": "^5.0",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.2"
     },
     "require-dev": {

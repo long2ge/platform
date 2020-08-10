@@ -10,8 +10,10 @@ namespace Modules\Admin\Models;
 
 
 use App\Models\BaseModel;
+use Laravel\Scout\Searchable;
+
 
 class Test extends BaseModel
 {
-
+    use Searchable;
 }
