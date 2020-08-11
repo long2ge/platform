@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\MyModel;
+use App\MySearchRule;
+use App\TestModel;
 use Illuminate\Console\Command;
 
 /**
@@ -39,7 +41,7 @@ class TestCommand extends Command
 
     public function handle()
     {
-       // 生成索引,建立映射
+        // 生成索引,建立映射
 
         // update an Elasticsearch type mapping
         // php artisan elastic:update-mapping "App\MyModel"  gen
@@ -48,15 +50,51 @@ class TestCommand extends Command
 
         // 插入数据
 
-//        $myModel = new MyModel();
-//        $myModel->title = '哈哈哈，呵呵';
-//        $myModel->name = '呵呵 123';
-//        $myModel->save();
+        $myModel = new TestModel();
+
+        $myModel->name = '呵呵 123';
+        $a = $myModel->save();
+        dd($a);
         // 搜索数据
 
 
-        $result = MyModel::search('Star Trek')->get();
-dd($result);
+//        $a = MyModel::search('task-status')->raw();
+
+//        $data = MyModel::search('POST')
+//            ->rule(MySearchRule::class)
+//            ->get()->toArray();
+//        dd($data);
+//        $data = MyModel::searchRaw([
+//            'query' => [
+//                'bool' => [
+//                    'must' => [
+//                        'match' => [
+//                            'request_method' => 'POST'
+//                        ]
+//                    ]
+//                ]
+//            ]
+//        ]);
+
+//        \DB::enableQueryLog();
+//
+//        $a = MyModel::search('POST')
+////            ->within('tv_shows_popularity_desc')
+//            ->paginate()
+//            ->toArray();
+//
+//        dd(\DB::getQueryLog());
+//        $bb = $myModel->searchable();
+
+// You may also update via relationships...
+//        $user->orders()->searchable();
+//
+//// You may also update via collections...
+//        $orders->searchable();
+
+
+//        $result = MyModel::search('Star Trek')->get()->toArray();
+
         // 更新数据
     }
 
