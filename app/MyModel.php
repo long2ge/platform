@@ -4,11 +4,14 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use ScoutElastic\Searchable;
 
 class MyModel extends Model
 {
     use Searchable;
+
+    use SoftDeletes;
 
     public $timestamps = false;
 
@@ -159,6 +162,8 @@ class MyModel extends Model
         MyModel::search('POST')
             ->rule(MySearchRule::class)
             ->get()->toArray();
+
+        MyModel::onlyTrashed();
 
     }
 

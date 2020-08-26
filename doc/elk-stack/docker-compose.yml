@@ -7,7 +7,7 @@ networks:
     driver: bridge
 
 services:
-        
+      
 ### Elasticsearch ################################################
     elasticsearch:
       container_name: elasticsearch
