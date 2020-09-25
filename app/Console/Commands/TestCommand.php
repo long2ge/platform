@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\MyModel;
-use App\MySearchRule;
-use App\TestModel;
+use App\Models\TestModel;
+
 use Illuminate\Console\Command;
 
 /**
@@ -50,52 +49,9 @@ class TestCommand extends Command
 
         // 插入数据
 
-        $myModel = new TestModel();
+        $a = TestModel::searchDemo();
+dd($a);
 
-        $myModel->name = '呵呵 123';
-        $a = $myModel->save();
-        dd($a);
-        // 搜索数据
-
-
-//        $a = MyModel::search('task-status')->raw();
-
-//        $data = MyModel::search('POST')
-//            ->rule(MySearchRule::class)
-//            ->get()->toArray();
-//        dd($data);
-//        $data = MyModel::searchRaw([
-//            'query' => [
-//                'bool' => [
-//                    'must' => [
-//                        'match' => [
-//                            'request_method' => 'POST'
-//                        ]
-//                    ]
-//                ]
-//            ]
-//        ]);
-
-//        \DB::enableQueryLog();
-//
-//        $a = MyModel::search('POST')
-////            ->within('tv_shows_popularity_desc')
-//            ->paginate()
-//            ->toArray();
-//
-//        dd(\DB::getQueryLog());
-//        $bb = $myModel->searchable();
-
-// You may also update via relationships...
-//        $user->orders()->searchable();
-//
-//// You may also update via collections...
-//        $orders->searchable();
-
-
-//        $result = MyModel::search('Star Trek')->get()->toArray();
-
-        // 更新数据
     }
 
 }

@@ -9,8 +9,8 @@ use ScoutElastic\Searchable;
 
 class BaseSearchableModel extends Model
 {
-    use Searchable;
 
+    use Searchable;
     // 强烈建议你配置一个 队列驱动，使用它运行一个队列来处理允许 Scout 将模型信息同步到搜索索引的所有操作，
     // 为你的应用的 web 接口提供更快的响应。一旦你配置了队列驱动程序，你的 config/scout.php 配置文件中 queue 选项的值要设置为 true
 
@@ -41,6 +41,7 @@ class BaseSearchableModel extends Model
         // 你也可以通过模型关系增加记录...
         // $user->orders()->searchable();
 
+        // You may also update via collections...
         // 你也可以通过集合增加记录...
         // $orders->searchable();
 
