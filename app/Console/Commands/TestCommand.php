@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\TestModel;
 
 use Illuminate\Console\Command;
+use Phpml\Association\Apriori;
 
 /**
  * 测试命令
@@ -37,21 +38,36 @@ class TestCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * 机器学习 - 预测方法
+     */
+    public static function testPredict()
+    {
+        // https://php-ml.readthedocs.io/en/latest/machine-learning/association/apriori/
+        $associator = new Apriori($support = 0.5, $confidence = 0.5);
+        $samples = [
+            ['alpha', 'beta', 'epsilon'], 
+            ['alpha', 'beta', 'theta'], 
+            ['alpha', 'beta', 'epsilon'], 
+            ['alpha', 'beta', 'theta'],
+        ];
+        $labels  = [];
+        $associator->train($samples, $labels);
+
+        return $associator->predict(['alpha','theta']);;
+
+    }
+
 
     public function handle()
     {
-        // 生成索引,建立映射
+        // ES  demo
+        // $a = TestModel::searchDemo();
+        // dd($a);
 
-        // update an Elasticsearch type mapping
-        // php artisan elastic:update-mapping "App\MyModel"  gen
+        $data = self::testPredict();
 
-//        $order->save();
-
-        // 插入数据
-
-        $a = TestModel::searchDemo();
-dd($a);
-
+        dd($data);
     }
 
 }
