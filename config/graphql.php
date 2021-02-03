@@ -101,6 +101,8 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
+                App\GraphQL\Query\UserQuery::class,
+                App\GraphQL\Query\JobQuery::class,
                 // 'example_query' => ExampleQuery::class,
             ],
             'mutation' => [
@@ -121,6 +123,8 @@ return [
     // ]
     //
     'types' => [
+        'user' => App\GraphQL\Type\UserType::class,
+        'job' => App\GraphQL\Type\JobType::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,

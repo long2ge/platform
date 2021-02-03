@@ -12,7 +12,7 @@ class User extends AbstractUser
      *
      * @var string
      */
-    protected $connection = 'user';
+    // protected $connection = 'user';
 
     /**
      * Table Name
@@ -54,4 +54,10 @@ class User extends AbstractUser
     {
         return (new static())->where('name', $username)->first();
     }
+
+    public function job()
+    {
+        return $this->hasMany('App\Job');
+    }
+    
 }
