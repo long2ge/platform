@@ -102,6 +102,7 @@ return [
         'default' => [
             'query' => [
                 App\GraphQL\Query\UserQuery::class,
+                App\GraphQL\Query\UsersQuery::class,
                 App\GraphQL\Query\JobQuery::class,
                 // 'example_query' => ExampleQuery::class,
             ],
