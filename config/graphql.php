@@ -106,6 +106,7 @@ return [
                 // 'example_query' => ExampleQuery::class,
             ],
             'mutation' => [
+                'updateUserPassword' => App\GraphQL\Mutations\UpdateUserPasswordMutation::class
                 // 'example_mutation'  => ExampleMutation::class,
             ],
             'middleware' => [],
